@@ -1,0 +1,10 @@
+{
+  "extends": ["@lbb/config-tsconfig"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src"]
+}

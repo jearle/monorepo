@@ -1,0 +1,22 @@
+{
+  "name": "@lbb/app-swole",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@lbb/util-convert": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@lbb/config-tsconfig": "workspace:*",
+    "@lbb/config-vite": "workspace:*"
+  }
+}

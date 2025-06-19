@@ -1,0 +1,16 @@
+{
+  "name": "@lbb/config-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "vite.config.js"
+  ],
+  "exports": "./vite.config.js",
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "@vitejs/plugin-react-swc": "^3.9.0",
+    "vite": "^6.3.5"
+  }
+}
