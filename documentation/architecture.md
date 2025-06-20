@@ -179,11 +179,10 @@ State is managed using Jotai's atomic model. The approach separates an asynchron
 **Example:**
 
 ```typescript
-import { atom, useAtom } from 'jotai';
+import { atom, useAtomValue } from 'jotai';
 import { loadable } from 'jotai/utils';
 import { configState } from '@/config';
 
-// 1. The async source atom fetches/creates the API client.
 const userAPIAsyncState = atom(async (get) => {
   const config = await get(configState);
   const { userURL } = config;
@@ -191,40 +190,28 @@ const userAPIAsyncState = atom(async (get) => {
   return userAPI;
 });
 
-// 2. The loadable utility wraps the async atom.
 const userAPILoadableState = loadable(userAPIAsyncState);
 
-// 3. Derived atoms select specific pieces of state.
-const isLoadingUserAPIState = atom(
+export const isLoadingUserAPIState = atom(
   (get) => get(userAPILoadableState).state === 'loading',
 );
 
-const userAPIErrorState = atom((get) => {
-  const loadable = get(userAPILoadableState);
-  return loadable.state === 'hasError' ? loadable.error : null;
+export const userAPIErrorState = atom((get) => {
+  const userAPILoadable = get(userAPILoadableState);
+  return userAPILoadable.state === 'hasError' ? userAPILoadable.error : null;
 });
 
-const userAPIState = atom((get) => {
-  const loadable = get(userAPILoadableState);
-  return loadable.state === 'hasData' ? loadable.data : null;
+export const userAPIState = atom((get) => {
+  const userAPILoadable = get(userAPILoadableState);
+  return userAPILoadable.state === 'hasData' ? userAPILoadable.data : null;
 });
 
-// 4. Custom hooks expose state to components.
-export const useIsLoadingUserAPI = () => {
-  const [isLoadingUserAPI] = useAtom(isLoadingUserAPIState);
-  const result = { isLoadingUserAPI };
-  return result;
-};
+export const useUserAPIState = () => {
+  const isLoading = useAtomValue(isLoadingUserAPIState);
+  const error = useAtomValue(userAPIErrorState);
+  const userAPI = useAtomValue(userAPIState);
 
-export const useUserAPIError = () => {
-  const [userAPIError] = useAtom(userAPIErrorState);
-  const result = { userAPIError };
-  return result;
-};
-
-export const useUserAPI = () => {
-  const [userAPI] = useAtom(userAPIState);
-  const result = { userAPI };
+  const result = { isLoading, error, userAPI };
   return result;
 };
 ```
