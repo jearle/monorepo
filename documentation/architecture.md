@@ -6,14 +6,14 @@ This document outlines the development standards for the monorepo.
 
 The monorepo uses a feature-based architecture organized by package type at the highest level. PNPM or Bun are the preferred package managers.
 
-- **`packages/apps/`**: Contains consumer applications (e.g., Next.js, Vite apps).
-- **`packages/libs/`**: Contains various libraries.
-- **`packages/uis/`**: Contains shared, generic UI components.
-- **`packages/utils/`**: Contains shared, pure utility functions.
-- **`packages/states/`**: Contains shared singleton states.
-- **`packages/schemas/`**: Contains data validation schemas.
-- **`packages/configs/`**: Contains shared configurations.
-- **`packages/designs/`**: Contains design tokens and assets.
+- **`apps/`**: Consumer applications (frontends, servers).
+- **`configs/`**: Shared configurations (ESLint, TSConfig).
+- **`designs/`**: Design tokens, fonts, and assets.
+- **`libs/`**: General-purpose libraries not fitting other categories.
+- **`schemas/`**: Data validation schemas (Zod).
+- **`states/`**: Shared, global state atoms (Jotai).
+- **`uis/`**: Shared UI components.
+- **`utils/`**: Shared, pure utility functions.
 
 **Example Structure:**
 
