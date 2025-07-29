@@ -9,11 +9,14 @@
     "verify": "eslint"
   },
   "dependencies": {
-    "@antinomyhq/forge": "^0.94.5",
+    "@antinomyhq/forge": "^0.97.1",
+    "fastify": "^5.2.0",
+    "fastify-type-provider-zod": "^5.0.2",
     "lodash.round": "4.0.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "zod": "4.0.5"
   },
   "devDependencies": {
     "@types/bun": "1.2.15",

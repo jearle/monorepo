@@ -23,6 +23,17 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'TSInterfaceDeclaration',
+          message: 'Use `type` instead of `interface`.',
+        },
+        {
+          selector: 'TSPropertySignature:not([readonly=true])',
+          message: 'All properties in type definitions must be readonly.',
+        },
+      ],
     },
   },
 );

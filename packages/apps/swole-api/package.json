@@ -1,0 +1,23 @@
+{
+  "name": "@lbb/app-swole-api",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "bun --watch src/main.ts",
+    "build": "tsc -b",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@lbb/api-health": "workspace:*",
+    "@lbb/schema-health": "workspace:*",
+    "@lbb/util-convert": "workspace:*"
+  },
+  "peerDependencies": {
+    "fastify": "^5",
+    "fastify-type-provider-zod": "^5"
+  },
+  "devDependencies": {
+    "@lbb/config-tsconfig": "workspace:*",
+    "@types/node": "^22.10.2"
+  }
+}
