@@ -1,5 +1,5 @@
 {
-  "name": "@lbb/api-health",
+  "name": "@jearle/api-health",
   "version": "0.0.0",
   "type": "module",
   "exports": {
@@ -18,14 +18,18 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@lbb/schema-health": "workspace:*"
+    "@jearle/lib-hono": "workspace:*",
+    "@jearle/util-env": "workspace:*",
+    "@jearle/util-logger": "workspace:*",
+    "@jearle/util-server": "workspace:*",
+    "@jearle/schema-api": "workspace:*",
+    "@jearle/schema-error": "workspace:*"
   },
   "peerDependencies": {
-    "fastify": "^5",
-    "fastify-type-provider-zod": "^5"
+    "@hono/zod-openapi": "^1"
   },
   "devDependencies": {
-    "@lbb/config-tsconfig": "workspace:*",
-    "@types/node": "^22.10.2"
+    "@jearle/config-tsconfig": "workspace:*",
+    "@types/node": "^24"
   }
 }

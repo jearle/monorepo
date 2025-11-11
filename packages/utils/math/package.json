@@ -1,5 +1,5 @@
 {
-  "name": "@lbb/util-math",
+  "name": "@jearle/util-math",
   "type": "module",
   "exports": {
     ".": {
@@ -16,6 +16,6 @@
     "lodash.round": "^4"
   },
   "devDependencies": {
-    "@lbb/config-tsconfig": "workspace:*"
+    "@jearle/config-tsconfig": "workspace:*"
   }
 }

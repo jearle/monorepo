@@ -1,3 +1,3 @@
-import eslintConfig from '@lbb/config-eslint';
+import eslintConfig from "@jearle/config-eslint";
 
 export default eslintConfig;

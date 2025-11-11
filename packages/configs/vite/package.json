@@ -1,5 +1,5 @@
 {
-  "name": "@lbb/config-vite",
+  "name": "@jearle/config-vite",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,9 @@
   "scripts": {},
   "dependencies": {},
   "devDependencies": {
-    "@vitejs/plugin-react-swc": "^3.9.0",
-    "vite": "^6.3.5",
-    "vite-tsconfig-paths": "^5.1.4"
+    "@tailwindcss/vite": "^4",
+    "@vitejs/plugin-react-swc": "^4",
+    "vite": "^7",
+    "vite-tsconfig-paths": "^5"
   }
 }

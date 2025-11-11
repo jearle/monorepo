@@ -1,16 +1,22 @@
-import { createApp } from './app';
+import { serve } from 'bun';
 
-const main = async () => {
-  const app = createApp();
+import { createEnv } from './env';
+import { createHealthLogger } from './logger';
+import { createServerFetch } from './server-fetch';
 
-  try {
-    const result = await app.listen({ port: 3000 });
-    console.log(result);
+export const main = async () => {
+  const { env } = createEnv();
+  const { logger } = createHealthLogger({ env });
 
-    console.log(`Server running on port ${result}`);
-  } catch (error) {
-    app.log.error(error);
-  }
+  const { fetch } = await createServerFetch({ env, logger });
+
+  const { HOSTNAME: hostname, PORT: port } = env;
+  const server = serve({ fetch, hostname, port });
+
+  logger.info({
+    message: 'Server started',
+    href: server.url.href,
+  });
 };
 
 main();

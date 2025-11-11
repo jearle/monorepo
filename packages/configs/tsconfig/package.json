@@ -1,5 +1,5 @@
 {
-  "name": "@lbb/config-tsconfig",
+  "name": "@jearle/config-tsconfig",
   "private": true,
   "version": "0.0.0",
   "type": "module",

@@ -1,10 +1,7 @@
 {
-  "extends": ["@lbb/config-tsconfig"],
+  "extends": ["@jearle/config-tsconfig"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["src"]
 }

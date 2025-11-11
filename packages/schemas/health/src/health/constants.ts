@@ -1,4 +1,0 @@
-export const STATUS_OK = `STATUS_OK`;
-export const STATUS_DEGRADED = `STATUS_DEGRADED`;
-export const STATUS_DOWN = `STATUS_DOWN`;
-export const STATUSES = [STATUS_OK, STATUS_DEGRADED, STATUS_DOWN] as const;

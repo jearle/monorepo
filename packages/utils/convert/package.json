@@ -1,5 +1,5 @@
 {
-  "name": "@lbb/util-convert",
+  "name": "@jearle/util-convert",
   "type": "module",
   "exports": {
     ".": {
@@ -12,11 +12,15 @@
     }
   },
   "dependencies": {
-    "@lbb/util-math": "workspace:*",
+    "@jearle/util-math": "workspace:*",
     "convert": "5.12.0"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "lodash.camelcase": "^4",
+    "lodash.mapkeys": "^4",
+    "lodash.snakecase": "^4"
+  },
   "devDependencies": {
-    "@lbb/config-tsconfig": "workspace:*"
+    "@jearle/config-tsconfig": "workspace:*"
   }
 }

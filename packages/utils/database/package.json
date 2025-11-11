@@ -1,0 +1,25 @@
+{
+  "name": "@jearle/util-database",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./*": {
+      "import": "./src/*/index.ts",
+      "types": "./src/*/index.ts"
+    }
+  },
+  "dependencies": {
+    "@jearle/lib-postgres": "workspace:*",
+    "@jearle/util-convert": "workspace:*",
+    "@jearle/util-env": "workspace:*",
+    "@jearle/util-logger": "workspace:*",
+    "@jearle/util-process": "workspace:*"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@jearle/config-tsconfig": "workspace:*"
+  }
+}

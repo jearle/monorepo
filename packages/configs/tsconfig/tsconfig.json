@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["react", "react-dom", "node", "vite/client", "bun"],
+    "types": ["node", "bun", "react", "react-dom", "vite/client"],
 
     /* Target Options - Latest browsers only */
     "target": "ES2024",
