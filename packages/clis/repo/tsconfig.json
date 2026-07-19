@@ -1,0 +1,7 @@
+{
+  "extends": ["@jearle/config-tsconfig"],
+  "compilerOptions": {
+    "types": ["node", "bun"]
+  },
+  "include": ["src"]
+}

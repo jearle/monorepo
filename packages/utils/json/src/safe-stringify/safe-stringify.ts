@@ -1,17 +1,18 @@
-import type {
-  JSONStringifyResult,
-  JSONStringifyResultFailure,
-  JSONStringifyResultSuccess,
+import {
+  type JSONStringifyResult,
+  type JSONStringifyResultFailure,
+  type JSONStringifyResultSuccess,
 } from './types';
+import { createStringifyError } from './errors';
 
 export const safeStringify = (
   value: unknown,
   space?: string,
 ): JSONStringifyResult => {
-  if (value === null || value === undefined || typeof value !== `object`) {
+  if (value === undefined) {
     const resultFailure: JSONStringifyResultFailure = {
       success: false,
-      error: new Error(`Object objects and arrays supported. Got: ${value}`),
+      error: new Error(`Value is not JSON serializable. Got: ${value}`),
     };
 
     return resultFailure;
@@ -20,6 +21,17 @@ export const safeStringify = (
   try {
     const data = JSON.stringify(value, null, space);
 
+    if (typeof data !== `string`) {
+      const resultFailure: JSONStringifyResultFailure = {
+        success: false,
+        error: new Error(
+          `Value is not JSON serializable. Got: ${String(value)}`,
+        ),
+      };
+
+      return resultFailure;
+    }
+
     const resultSuccess: JSONStringifyResultSuccess = {
       success: true,
       data,
@@ -27,11 +39,7 @@ export const safeStringify = (
 
     return resultSuccess;
   } catch (errorUnknown: unknown) {
-    const error =
-      errorUnknown instanceof Error
-        ? errorUnknown
-        : new Error(`${errorUnknown}`);
-
+    const error = createStringifyError(errorUnknown);
     const resultFailure: JSONStringifyResultFailure = {
       success: false,
       error,

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "lint": {
+      "cache": true,
+      "outputs": []
+    },
+    "lint:style": {
+      "cache": true,
+      "outputs": []
+    },
+    "test": {
+      "cache": true,
+      "outputs": []
+    },
+    "verify:deps": {
+      "cache": true,
+      "outputs": []
+    },
+    "verify:package-exports": {
+      "cache": true,
+      "outputs": []
+    },
+    "compile": {
+      "cache": true,
+      "outputs": []
+    },
+    "format": {
+      "cache": true,
+      "outputs": []
+    }
+  },
+  "globalDependencies": [
+    ".prettierrc",
+    "packages/configs/oxlint/.oxlintrc.json",
+    "packages/configs/oxlint/monorepo-conventions-plugin.js",
+    "knip.jsonc",
+    "packages/configs/oxlint/rules/**/*.js"
+  ]
+}

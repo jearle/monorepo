@@ -1,6 +1,6 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
-import { getDirname } from './get-dirname';
+import { getDirname } from '.';
 
 test(`getDirname(import.meta.url)`, () => {
   const dirname = getDirname(import.meta.url);

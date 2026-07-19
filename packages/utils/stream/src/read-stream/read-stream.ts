@@ -1,11 +1,11 @@
 export type OnChunk<T> = (chunk: T | undefined) => void;
 
-export type PropsReadStream<T> = {
+export type ReadStreamProps<T> = {
   readonly stream: ReadableStream<T>;
   readonly onChunk: OnChunk<T>;
 };
 
-export const readStream = <T>(props: PropsReadStream<T>): Promise<void> => {
+export const readStream = <T>(props: ReadStreamProps<T>): Promise<void> => {
   const { stream, onChunk } = props;
 
   const reader = stream.getReader();
@@ -30,6 +30,6 @@ export const readStream = <T>(props: PropsReadStream<T>): Promise<void> => {
       }
     };
 
-    read();
+    void read();
   });
 };

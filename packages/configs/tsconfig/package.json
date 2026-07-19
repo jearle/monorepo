@@ -7,7 +7,13 @@
     "tsconfig.json"
   ],
   "exports": "./tsconfig.json",
-  "scripts": {},
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint"
+  },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@jearle/config-oxlint": "workspace:*"
+  }
 }

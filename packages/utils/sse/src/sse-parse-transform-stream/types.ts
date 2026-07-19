@@ -1,4 +1,4 @@
-import type { SSE_TRANSFORM_STREAM_STATUSES } from './constants';
+import { type SSE_TRANSFORM_STREAM_STATUSES } from './constants';
 
 export type SSEParseTransformStreamStatus =
   (typeof SSE_TRANSFORM_STREAM_STATUSES)[number];

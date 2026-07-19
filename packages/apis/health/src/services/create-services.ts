@@ -1,12 +1,7 @@
-import { type Logger } from '@jearle/util-logger';
+import { type ServicesContext } from './types';
 
-import { type Env } from '../env';
-
-type PropsCreateServices = {
-  readonly env: Env;
-  readonly logger: Logger;
-};
-export const createServices = async (_props: PropsCreateServices) => {
+export const createServices = (ctx: ServicesContext) => {
+  void ctx;
   const services = {};
 
   const result = { services };
@@ -14,4 +9,4 @@ export const createServices = async (_props: PropsCreateServices) => {
   return result;
 };
 
-export type Services = Awaited<ReturnType<typeof createServices>>[`services`];
+export type Services = ReturnType<typeof createServices>[`services`];

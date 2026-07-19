@@ -1,0 +1,26 @@
+{
+  "name": "@jearle/util-embeddings",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "format": "bun run repo package format",
+    "lint": "bun run repo package lint",
+    "compile": "bun run repo package compile",
+    "test": "bun run repo package test",
+    "verify": "bun run repo package verify"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.0.1"
+  },
+  "devDependencies": {
+    "@jearle/config-bun": "workspace:*",
+    "@jearle/config-oxlint": "workspace:*",
+    "@jearle/config-tsconfig": "workspace:*"
+  }
+}

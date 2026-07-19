@@ -1,5 +1,6 @@
 {
   "name": "@jearle/util-logger",
+  "version": "0.0.0",
   "type": "module",
   "exports": {
     ".": {
@@ -11,6 +12,13 @@
       "types": "./src/*/index.ts"
     }
   },
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "test": "bun run repo package test",
+    "verify": "bun run repo package verify"
+  },
   "dependencies": {
     "@jearle/util-env": "workspace:*"
   },
@@ -20,6 +28,7 @@
     "zod": "^4"
   },
   "devDependencies": {
+    "@jearle/config-oxlint": "workspace:*",
     "@jearle/config-tsconfig": "workspace:*"
   }
 }

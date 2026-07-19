@@ -1,6 +1,6 @@
-import type {
-  JSONStringifyResultSuccess,
-  JSONStringifyResultFailure,
+import {
+  type JSONStringifyResultFailure,
+  type JSONStringifyResultSuccess,
 } from '@jearle/util-json';
 
 export type JSONStringifyStreamInput = {

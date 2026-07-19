@@ -1,12 +1,12 @@
 import { type PostgresDatabase } from '@jearle/lib-postgres';
 import { queryOne } from '../query-one';
 
-export type PropsQueryDestroyOne = {
+export type QueryDestroyOneProps = {
   readonly db: PostgresDatabase;
   readonly table: string;
   readonly id: string;
 };
-export const queryDestroyOne = async <TData>(props: PropsQueryDestroyOne) => {
+export const queryDestroyOne = async <TData>(props: QueryDestroyOneProps) => {
   const { db, table, id } = props;
 
   const queryString = `DELETE FROM ${table} WHERE id = $1 RETURNING *`;

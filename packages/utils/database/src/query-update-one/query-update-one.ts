@@ -3,7 +3,7 @@ import { type PostgresDatabase } from '@jearle/lib-postgres';
 import { type ExistingEntity, entityToUpdateFragments } from '../entity';
 import { queryOne } from '../query-one';
 
-export type PropsQueryUpdateOne<TEntity extends ExistingEntity> = {
+export type QueryUpdateOneProps<TEntity extends ExistingEntity> = {
   readonly db: PostgresDatabase;
   readonly table: string;
   readonly entity: TEntity;
@@ -12,7 +12,7 @@ export const queryUpdateOne = async <
   TData,
   TEntity extends ExistingEntity = ExistingEntity,
 >(
-  props: PropsQueryUpdateOne<TEntity>,
+  props: QueryUpdateOneProps<TEntity>,
 ) => {
   const { db, table, entity } = props;
 
@@ -27,7 +27,7 @@ export const queryUpdateOne = async <
 
   const queryString = `
     UPDATE ${table}
-    SET ${assignments.join(', ')}
+    SET ${assignments.join(`, `)}
     WHERE id = $${values.length}
     RETURNING *;
   `;

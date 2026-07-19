@@ -1,5 +1,6 @@
 {
   "name": "@jearle/util-math",
+  "version": "0.0.0",
   "type": "module",
   "exports": {
     ".": {
@@ -11,11 +12,23 @@
       "types": "./src/*/index.ts"
     }
   },
-  "dependencies": {},
-  "peerDependencies": {
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "test": "bun run repo package test",
+    "verify": "bun run repo package verify"
+  },
+  "dependencies": {
+    "@jearle/util-env": "workspace:*",
+    "@jearle/util-logger": "workspace:*",
     "lodash.round": "^4"
   },
+  "peerDependencies": {
+    "zod": "^4"
+  },
   "devDependencies": {
+    "@jearle/config-oxlint": "workspace:*",
     "@jearle/config-tsconfig": "workspace:*"
   }
 }

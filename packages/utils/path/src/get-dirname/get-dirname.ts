@@ -1,5 +1,5 @@
 import path from 'node:path';
-import type { URL } from 'node:url';
+import { type URL } from 'node:url';
 
 import { getFilename } from '../get-filename';
 

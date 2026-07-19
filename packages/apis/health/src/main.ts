@@ -14,9 +14,9 @@ export const main = async () => {
   const server = serve({ fetch, hostname, port });
 
   logger.info({
-    message: 'Server started',
+    message: `Server started`,
     href: server.url.href,
   });
 };
 
-main();
+void main();

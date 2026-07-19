@@ -1,18 +1,18 @@
-import { OpenAPIHono, createRoute } from '@hono/zod-openapi';
+import { type OpenAPIHono, createRoute } from '@hono/zod-openapi';
 
 import {
   type HealthData,
   type HealthResponse,
-  HealthResponseSchema,
   HEALTH_STATUS_OK,
+  HealthResponseSchema,
 } from '../schema';
 
 const timestamp = new Date().toISOString();
 
-type PropsAddRootRoutes = {
+export type AddRootRoutesProps = {
   readonly healthApp: OpenAPIHono;
 };
-export const addRootRoutes = (props: PropsAddRootRoutes) => {
+export const addRootRoutes = (props: AddRootRoutesProps) => {
   const { healthApp } = props;
 
   const rootRoute = createRoute({

@@ -1,7 +1,7 @@
-import type {
-  JSONParseResult,
-  JSONParseResultFailure,
-  JSONParseResultSuccess,
+import {
+  type JSONParseResult,
+  type JSONParseResultFailure,
+  type JSONParseResultSuccess,
 } from './types';
 
 export const safeParse = <T = unknown>(value: string): JSONParseResult<T> => {

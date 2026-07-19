@@ -1,9 +1,11 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
-import { toSnakeCaseProps } from './to-snake-case-props';
+import { toSnakeCaseProps } from '.';
 
 test(`toSnakeCaseProps(validObject)`, () => {
-  const snakeCasedObject = toSnakeCaseProps<{ readonly camel_case: string }>({
+  type SnakeCasedObjectShape = { readonly camel_case: string };
+
+  const snakeCasedObject = toSnakeCaseProps<SnakeCasedObjectShape>({
     camelCase: `hello`,
   });
 

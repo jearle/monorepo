@@ -1,7 +1,0 @@
-{
-  "extends": ["@jearle/config-tsconfig"],
-  "compilerOptions": {
-    "baseUrl": "."
-  },
-  "include": ["src"]
-}

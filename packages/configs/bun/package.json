@@ -1,0 +1,30 @@
+{
+  "name": "@jearle/config-bun",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    "./testing-library-jest-dom-matchers": {
+      "types": "./src/testing-library-jest-dom-matchers/testing-library-jest-dom-matchers.d.ts",
+      "default": "./src/testing-library-jest-dom-matchers/testing-library-jest-dom-matchers.ts"
+    },
+    "./test-preload": "./src/test-preload/test-preload.ts"
+  },
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "verify": "bun run repo package verify"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^20",
+    "@jearle/config-oxlint": "workspace:*",
+    "@jearle/config-tsconfig": "workspace:*",
+    "@testing-library/jest-dom": "^6",
+    "@testing-library/react": "^16"
+  }
+}

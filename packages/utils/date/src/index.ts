@@ -1,4 +1,4 @@
 export * from './add-duration';
 export * from './units';
 
-export { isBefore, isAfter } from 'date-fns';
+export { isAfter, isBefore } from 'date-fns';

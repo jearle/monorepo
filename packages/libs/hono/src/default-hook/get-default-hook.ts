@@ -1,5 +1,5 @@
 import { type Env } from 'hono';
-import { type Hook, z } from '@hono/zod-openapi';
+import { type Hook, type z } from '@hono/zod-openapi';
 
 import { type BaseResponse } from '@jearle/schema-api';
 import { type ClientError, CLIENT_ERROR_TYPE } from '@jearle/schema-error';

@@ -9,7 +9,7 @@ export const toSnakeCaseProps = <
 >(
   object: TUknownObject,
 ): null | TSnakeCasedObject => {
-  if (typeof object !== 'object') {
+  if (typeof object !== `object`) {
     return null;
   }
 

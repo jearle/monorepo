@@ -1,32 +1,32 @@
 import {
-  addYears,
-  addQuarters,
-  addMonths,
-  addWeeks,
-  addDays,
   addBusinessDays,
+  addDays,
   addHours,
-  addMinutes,
-  addSeconds,
   addMilliseconds,
+  addMinutes,
+  addMonths,
+  addQuarters,
+  addSeconds,
+  addWeeks,
+  addYears,
 } from 'date-fns';
 
 import {
-  UNIT_YEARS,
-  UNIT_QUARTERS,
-  UNIT_MONTHS,
-  UNIT_WEEKS,
-  UNIT_DAYS,
-  UNIT_BUSINESS_DAYS,
-  UNIT_HOURS,
-  UNIT_MINUTES,
-  UNIT_SECONDS,
-  UNIT_MILLISECONDS,
   type Unit,
+  UNIT_BUSINESS_DAYS,
+  UNIT_DAYS,
+  UNIT_HOURS,
+  UNIT_MILLISECONDS,
+  UNIT_MINUTES,
+  UNIT_MONTHS,
+  UNIT_QUARTERS,
+  UNIT_SECONDS,
+  UNIT_WEEKS,
+  UNIT_YEARS,
 } from '../units';
 
 import { DURATION_STRING_REGEXP } from './constants';
-import { type DurationString } from './types';
+import { type AddDurationOptions, type DurationString } from './types';
 
 const getDurationValueAndUnit = (durationString: DurationString) => {
   const regExpExecArray = DURATION_STRING_REGEXP.exec(durationString);
@@ -82,13 +82,10 @@ const getDurationValueAndUnit = (durationString: DurationString) => {
   return durationValueAndUnit;
 };
 
-type OptionsAddDuration = {
-  readonly fromDate?: Date;
-};
 const OPTIONS_DEFAULT = {};
 export const addDuration = (
   durationString: DurationString,
-  options: OptionsAddDuration = OPTIONS_DEFAULT,
+  options: AddDurationOptions = OPTIONS_DEFAULT,
 ) => {
   const { fromDate = new Date() } = options;
 

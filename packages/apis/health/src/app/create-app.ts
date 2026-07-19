@@ -2,7 +2,7 @@ import { cors } from 'hono/cors';
 import { requestId } from 'hono/request-id';
 import { secureHeaders } from 'hono/secure-headers';
 
-import { getOnError, hono, loggerMiddleware, addOpenAPI } from '@jearle/lib-hono';
+import { addOpenAPI, getOnError, hono, loggerMiddleware } from '@jearle/lib-hono';
 import { type Logger } from '@jearle/util-logger';
 
 import { type Env } from '../env';
@@ -10,14 +10,14 @@ import { type Services } from '../services';
 import { type Middlewares } from '../middlewares';
 import { createHealthApp } from '../health-app';
 
-type PropsCreateApp = {
+export type CreateAppProps = {
   readonly env: Env;
   readonly logger: Logger;
   readonly services: Services;
   readonly middlewares: Middlewares;
 };
-export const createApp = (props: PropsCreateApp) => {
-  const { logger, services, middlewares } = props;
+export const createApp = (props: CreateAppProps) => {
+  const { env, logger, services, middlewares } = props;
   const { onError } = getOnError();
 
   const app = hono().basePath(`/api/v1`);
@@ -29,6 +29,7 @@ export const createApp = (props: PropsCreateApp) => {
   app.use(`*`, loggerMiddleware({ logger }));
 
   const { healthApp } = createHealthApp({
+    env,
     services,
     middlewares,
   });

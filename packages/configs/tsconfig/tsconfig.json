@@ -19,7 +19,8 @@
     /* Type Checking Options - Ultra Strict */
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    // unsupported by zod 4
+    // "exactOptionalPropertyTypes": true,
     "noImplicitOverride": true,
 
     /* Additional Strict Checks */

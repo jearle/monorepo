@@ -1,6 +1,4 @@
-import { fetch } from 'bun';
-
-type PropsFetchChatCompletions = {
+export type FetchOpenrouterChatCompletionsProps = {
   readonly api: string;
   readonly apiKey: string;
   readonly model: string;
@@ -9,7 +7,7 @@ type PropsFetchChatCompletions = {
   readonly stream: boolean;
 };
 export const fetchOpenrouterChatCompletions = async (
-  props: PropsFetchChatCompletions,
+  props: FetchOpenrouterChatCompletionsProps,
 ) => {
   const { api, apiKey, model, system, user, stream } = props;
 

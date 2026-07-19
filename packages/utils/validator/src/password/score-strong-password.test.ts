@@ -1,8 +1,8 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
 import { STRONG_PASSWORD, WEAK_PASSWORD } from './constants-test';
-import { STRONG_PASSWORD_THRESHOLD } from './constants';
-import { scoreStrongPassword } from './score-strong-password';
+import { STRONG_PASSWORD_THRESHOLD } from '.';
+import { scoreStrongPassword } from '.';
 
 test(`scoreStrongPassword(STRONG_PASSWORD)`, () => {
   const strongPasswordScore = scoreStrongPassword(STRONG_PASSWORD);

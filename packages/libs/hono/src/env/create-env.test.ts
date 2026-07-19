@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test';
 
-import { createEnv } from './create-env';
+import { createEnv } from '.';
 
 test(`createEnv()`, () => {
   const { env } = createEnv();

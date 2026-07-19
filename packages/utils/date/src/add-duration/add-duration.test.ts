@@ -1,9 +1,9 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
 import { UNITS } from '../units';
 
-import { addDuration } from './add-duration';
-import type { DurationString } from './types';
+import { addDuration } from '.';
+import { type DurationString } from '.';
 
 test(`addDuration(durationString)`, () => {
   UNITS.forEach((unit) => {

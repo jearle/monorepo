@@ -1,7 +1,9 @@
-import { z } from 'zod';
+import { type z } from 'zod';
 
-import { SuccessResponseDataSchema } from './success-response-data-schema';
-import { SuccessResponseSchema } from './success-response-schema';
+import {
+  type SuccessResponseDataSchema,
+  type SuccessResponseSchema,
+} from './schemas';
 
 export type SuccessResponseData = z.infer<typeof SuccessResponseDataSchema>;
 export type SuccessResponse = z.infer<typeof SuccessResponseSchema>;

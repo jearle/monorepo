@@ -1,0 +1,35 @@
+{
+  "name": "@jearle/schema-conversation",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./*": {
+      "import": "./src/*/index.ts",
+      "types": "./src/*/index.ts"
+    }
+  },
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "verify": "bun run repo package verify"
+  },
+  "dependencies": {
+    "@jearle/lib-zod": "workspace:*",
+    "@jearle/schema-api": "workspace:*",
+    "@jearle/schema-entity": "workspace:*",
+    "@jearle/util-types": "workspace:*"
+  },
+  "peerDependencies": {
+    "zod": "^4"
+  },
+  "devDependencies": {
+    "@jearle/config-bun": "workspace:*",
+    "@jearle/config-oxlint": "workspace:*",
+    "@jearle/config-tsconfig": "workspace:*"
+  }
+}

@@ -1,3 +1,3 @@
-import type { Pool } from 'pg';
+import { type Pool } from 'pg';
 
 export type PostgresDatabase = Pool;

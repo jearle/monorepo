@@ -1,25 +1,24 @@
-import { z } from 'zod';
-import type { ZodObject, ZodRawShape } from 'zod';
+import { type ZodObject, type ZodRawShape } from 'zod';
 
-type PropsCreateEnv<T extends ZodRawShape> = {
+import { validateEnv } from './validate-env';
+
+export type ParseEnvProps<T extends ZodRawShape> = {
   readonly EnvSchema: ZodObject<T>;
 };
-export const parseEnv = <T extends ZodRawShape>(props: PropsCreateEnv<T>) => {
+
+export const parseEnv = <T extends ZodRawShape>(props: ParseEnvProps<T>) => {
   const { EnvSchema } = props;
+  const validationResult = validateEnv({
+    EnvSchema,
+    env: process.env,
+  });
 
-  const parsedEnv = EnvSchema.safeParse(process.env);
-
-  const { success } = parsedEnv;
-
-  if (success === false) {
-    const { error } = parsedEnv;
-
-    const errorTree = z.treeifyError(error);
-    console.error('Invalid environment variables:\n', errorTree);
+  if (validationResult.success === false) {
+    console.error(`Invalid environment variables:\n`, validationResult.error);
     process.exit(1);
   }
 
-  const { data: env } = parsedEnv;
+  const { env } = validationResult;
 
   const result = { env };
 

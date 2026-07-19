@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { type z } from 'zod';
 
 import { BaseResponseSchema } from './base-response-schema';
 

@@ -3,7 +3,7 @@ import { type PostgresDatabase } from '@jearle/lib-postgres';
 import { type NewEntity, entityToInsertFragments } from '../entity';
 import { queryOne } from '../query-one';
 
-export type PropsQueryCreateOne<TEntity extends NewEntity> = {
+export type QueryCreateOneProps<TEntity extends NewEntity> = {
   readonly db: PostgresDatabase;
   readonly table: string;
   readonly entity: TEntity;
@@ -12,7 +12,7 @@ export const queryCreateOne = async <
   TData,
   TEntity extends NewEntity = NewEntity,
 >(
-  props: PropsQueryCreateOne<TEntity>,
+  props: QueryCreateOneProps<TEntity>,
 ) => {
   const { db, table, entity } = props;
 
@@ -27,8 +27,8 @@ export const queryCreateOne = async <
 
   const queryString = `
     INSERT INTO ${table}
-    (${columns.join(', ')})
-    VALUES (${placeholders.join(', ')})
+    (${columns.join(`, `)})
+    VALUES (${placeholders.join(`, `)})
     RETURNING *;
   `;
 

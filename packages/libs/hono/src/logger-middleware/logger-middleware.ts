@@ -1,22 +1,17 @@
-import type { MiddlewareHandler } from 'hono';
+import { type MiddlewareHandler } from 'hono';
 import { pinoLogger } from 'hono-pino';
 
 import { type Logger } from 'pino';
 
-type PropsLoggerMiddleware = {
+export type LoggerMiddlewareProps = {
   readonly logger: Logger;
 };
-export const loggerMiddleware = (props: PropsLoggerMiddleware) => {
+export const loggerMiddleware = (props: LoggerMiddlewareProps) => {
   const { logger } = props;
 
-  const nextLogger: MiddlewareHandler = (c, next) => {
-    const middlewarePinoLogger = pinoLogger({
-      pino: logger,
-      nodeRuntime: true,
-    })(c, next);
-
-    return middlewarePinoLogger;
-  };
+  const nextLogger: MiddlewareHandler = pinoLogger({
+    pino: logger,
+  });
 
   return nextLogger;
 };

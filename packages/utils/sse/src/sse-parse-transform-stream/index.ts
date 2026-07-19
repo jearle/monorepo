@@ -1,3 +1,3 @@
 export * from './constants';
 export * from './types';
-export * from './create-sse-transform-stream';
+export * from './create-sse-parse-transform-stream';

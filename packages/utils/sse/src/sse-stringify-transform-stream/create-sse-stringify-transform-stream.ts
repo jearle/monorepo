@@ -1,12 +1,12 @@
 import {
-  createSSEString,
   SSE_FIELD_NAME_DATA,
   SSE_FIELD_VALUE_DONE,
+  createSSEString,
 } from '../sse-string';
 
-import type {
-  SSEStringifyTransformStreamInput,
-  SSEStringifyTransformStreamOutput,
+import {
+  type SSEStringifyTransformStreamInput,
+  type SSEStringifyTransformStreamOutput,
 } from './types';
 
 export const createSSEStringifyTransformStream = () => {

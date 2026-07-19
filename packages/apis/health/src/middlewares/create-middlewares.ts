@@ -1,12 +1,10 @@
-import { type Logger } from '@jearle/util-logger';
-
 import { type Services } from '../services';
 
-type PropsCreateMiddlewares = {
+export type CreateMiddlewaresProps = {
   readonly services: Services;
-  readonly logger: Logger;
 };
-export const createMiddlewares = (_props: PropsCreateMiddlewares) => {
+export const createMiddlewares = (props: CreateMiddlewaresProps) => {
+  void props;
   const middlewares = {};
 
   const result = { middlewares };

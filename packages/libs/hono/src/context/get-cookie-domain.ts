@@ -4,18 +4,18 @@ import { type Env } from '../env';
 
 import { getHostnameFromHeader } from './get-hostname-from-header';
 
-export type PropsGetCookieDomain = {
+export type GetCookieDomainProps = {
   readonly env: Env;
   readonly c: Context;
 };
-export const getCookieDomain = (props: PropsGetCookieDomain) => {
+export const getCookieDomain = (props: GetCookieDomainProps) => {
   const { env, c } = props;
   const { hostname } = getHostnameFromHeader({ env, c });
 
   const domain =
-    hostname === 'localhost'
+    hostname === `localhost`
       ? undefined
-      : `.${hostname.split('.').slice(-2).join('.')}`;
+      : `.${hostname.split(`.`).slice(-2).join(`.`)}`;
 
   const result = { domain };
 

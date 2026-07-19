@@ -7,12 +7,17 @@
     "vite.config.js"
   ],
   "exports": "./vite.config.js",
-  "scripts": {},
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint"
+  },
   "dependencies": {},
   "devDependencies": {
-    "@tailwindcss/vite": "^4",
-    "@vitejs/plugin-react-swc": "^4",
-    "vite": "^7",
-    "vite-tsconfig-paths": "^5"
+    "@jearle/config-oxlint": "workspace:*",
+    "@tailwindcss/vite": "^4.2.2",
+    "@vitejs/plugin-react": "^6.0.2",
+    "vite": "^8.0.8",
+    "vite-plugin-babel": "^1.6.0"
   }
 }

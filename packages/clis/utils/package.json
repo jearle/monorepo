@@ -1,0 +1,49 @@
+{
+  "name": "@jearle/cli-utils",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "utils": "./src/main.ts"
+  },
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./*": {
+      "import": "./src/*/index.ts",
+      "types": "./src/*/index.ts"
+    }
+  },
+  "scripts": {
+    "format": "bun run repo package format",
+    "start": "bun src/main.ts",
+    "cli": "bun src/main.ts",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "test": "bun run repo package test",
+    "verify": "bun run repo package verify"
+  },
+  "dependencies": {
+    "@jearle/util-cli": "workspace:*",
+    "@jearle/util-csv": "workspace:*",
+    "@jearle/util-env": "workspace:*",
+    "@jearle/util-fs": "workspace:*",
+    "@jearle/util-http": "workspace:*",
+    "@jearle/util-json": "workspace:*",
+    "@jearle/util-logger": "workspace:*",
+    "@jearle/util-result": "workspace:*",
+    "@jearle/util-template": "workspace:*"
+  },
+  "peerDependencies": {
+    "@bunli/core": "^0",
+    "pino": "^10",
+    "pino-pretty": "^13",
+    "zod": "^4"
+  },
+  "devDependencies": {
+    "@jearle/config-oxlint": "workspace:*",
+    "@jearle/config-tsconfig": "workspace:*"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "$schema": "../../../node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error"
+  },
+  "env": {
+    "browser": true,
+    "es2026": true,
+    "node": true
+  },
+  "globals": {
+    "Bun": "readonly"
+  },
+  "ignorePatterns": [
+    "*.old",
+    "*.old/**",
+    ".turbo",
+    "coverage",
+    "dist",
+    "node_modules"
+  ],
+  "jsPlugins": [
+    {
+      "name": "monorepo-conventions",
+      "specifier": "./monorepo-conventions-plugin.js"
+    }
+  ],
+  "options": {
+    "typeAware": true
+  },
+  "overrides": [
+    {
+      "files": ["**/*.{ts,tsx}"],
+      "rules": {
+        "monorepo-conventions/no-default-exports": "error",
+        "monorepo-conventions/no-deprecated-zod-apis": "error",
+        "monorepo-conventions/no-direct-process-env": "error",
+        "monorepo-conventions/no-duplicate-capture-cli-helpers": "error",
+        "monorepo-conventions/no-external-service-workflow-imports": "error",
+        "monorepo-conventions/no-inline-ansi-escapes": "error",
+        "monorepo-conventions/no-internal-module-mocks": "error",
+        "monorepo-conventions/no-nested-object-type-literals": "error",
+        "monorepo-conventions/no-nested-ternaries": "error",
+        "monorepo-conventions/no-null-companion-result-fields": "error",
+        "monorepo-conventions/order-import-specifiers": "error",
+        "monorepo-conventions/no-object-mutation": [
+          "error",
+          {
+            "allowCurrentPropertyAssignment": true
+          }
+        ],
+        "monorepo-conventions/no-process-exit-code-assignment": "error",
+        "monorepo-conventions/no-process-env-casts": "error",
+        "monorepo-conventions/no-redundant-local-domain-prefix": "error",
+        "monorepo-conventions/no-schema-package-behavior-exports": "error",
+        "monorepo-conventions/no-thrown-boundary-validation-errors": "error",
+        "monorepo-conventions/prefer-backtick-string-literals": "error",
+        "monorepo-conventions/prefer-array-head-destructuring": "error",
+        "monorepo-conventions/prefer-boundary-safe-parse": "error",
+        "monorepo-conventions/prefer-check-predicate-names": "error",
+        "monorepo-conventions/prefer-constants-over-enums": "error",
+        "monorepo-conventions/prefer-directory-index-source-imports": "error",
+        "monorepo-conventions/prefer-extensionless-relative-source-imports": "error",
+        "monorepo-conventions/prefer-exported-const-arrow-functions": "error",
+        "monorepo-conventions/prefer-function-owned-helper-type-names": "error",
+        "monorepo-conventions/prefer-inline-type-exports": "error",
+        "monorepo-conventions/prefer-inline-type-imports": "error",
+        "monorepo-conventions/prefer-public-entrypoint-imports": "error",
+        "monorepo-conventions/prefer-readonly-array-syntax": "error",
+        "monorepo-conventions/prefer-schema-derived-types": "error",
+        "monorepo-conventions/prefer-test-public-entrypoint-imports": "error",
+        "monorepo-conventions/prefer-type-aliases": "error",
+        "monorepo-conventions/require-cli-main-shebang": "error",
+        "monorepo-conventions/require-error-message-helpers-in-error-modules": [
+          "error",
+          {
+            "requirePrivateErrorHelpers": true
+          }
+        ],
+        "monorepo-conventions/require-function-parameter-conventions": [
+          "error",
+          {
+            "requireNamedPropsTypeReference": true
+          }
+        ],
+        "monorepo-conventions/require-helper-type-placement": "error",
+        "monorepo-conventions/require-index-reexports": "error",
+        "monorepo-conventions/require-jotai-hook-result-object": "error",
+        "monorepo-conventions/require-local-schema-file-names": "error",
+        "monorepo-conventions/require-options-type-suffix": "error",
+        "monorepo-conventions/require-public-export-filename": "error",
+        "monorepo-conventions/require-public-type-reference-exports": "error",
+        "monorepo-conventions/require-readonly-type-properties": "error",
+        "monorepo-conventions/require-result-variable-return": "error",
+        "monorepo-conventions/require-service-factory-context": "error",
+        "monorepo-conventions/require-service-info-method": "error",
+        "monorepo-conventions/require-shallow-src-structure": "error",
+        "monorepo-conventions/require-ts-expect-error-description": "error",
+        "monorepo-conventions/require-ui-component-examples": "error",
+        "monorepo-conventions/require-uppercase-status-values": "error",
+        "typescript/no-floating-promises": "error",
+        "typescript/no-misused-promises": "error",
+        "typescript/no-non-null-assertion": "error",
+        "typescript/no-unnecessary-type-assertion": "error",
+        "typescript/no-unsafe-argument": "error",
+        "typescript/no-unsafe-assignment": "error",
+        "typescript/no-unsafe-call": "error",
+        "typescript/no-unsafe-member-access": "error",
+        "typescript/no-unsafe-return": "error",
+        "typescript/no-unsafe-type-assertion": "off"
+      }
+    },
+    {
+      "files": ["packages/utils/template/**/*.{ts,tsx}"],
+      "rules": {
+        "monorepo-conventions/no-object-mutation": [
+          "error",
+          {
+            "allowCurrentPropertyAssignment": true,
+            "requireObjectMutationApiChecks": true
+          }
+        ],
+        "monorepo-conventions/prefer-check-predicate-names": [
+          "error",
+          {
+            "requireBooleanValueNames": true
+          }
+        ],
+        "monorepo-conventions/require-function-parameter-conventions": [
+          "error",
+          {
+            "requireContextOperationShape": true,
+            "requireNamedPropsTypeReference": true
+          }
+        ],
+        "monorepo-conventions/require-result-variable-return": [
+          "error",
+          {
+            "requireAllNonTrivialReturns": true
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "**/*.config.{ts,tsx}",
+        "**/*.d.ts",
+        "**/build.ts",
+        "**/vite.config.ts"
+      ],
+      "rules": {
+        "monorepo-conventions/no-default-exports": "off",
+        "monorepo-conventions/prefer-exported-const-arrow-functions": "off",
+        "typescript/no-floating-promises": "off",
+        "typescript/no-misused-promises": "off",
+        "typescript/no-non-null-assertion": "off",
+        "typescript/no-unnecessary-type-assertion": "off",
+        "typescript/no-unsafe-argument": "off",
+        "typescript/no-unsafe-assignment": "off",
+        "typescript/no-unsafe-call": "off",
+        "typescript/no-unsafe-member-access": "off",
+        "typescript/no-unsafe-return": "off",
+        "typescript/no-unsafe-type-assertion": "off"
+      }
+    },
+    {
+      "files": ["**/*.test.{ts,tsx}", "**/src/test/**/*.{ts,tsx}"],
+      "rules": {
+        "monorepo-conventions/no-object-mutation": "off",
+        "typescript/no-non-null-assertion": "off",
+        "typescript/no-unsafe-argument": "off",
+        "typescript/no-unsafe-assignment": "off",
+        "typescript/no-unsafe-call": "off",
+        "typescript/no-unsafe-member-access": "off",
+        "typescript/no-unsafe-return": "off",
+        "typescript/no-unsafe-type-assertion": "off"
+      }
+    }
+  ],
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "oxc",
+    "import",
+    "react",
+    "promise"
+  ],
+  "rules": {
+    "curly": ["error", "all"],
+    "eslint/no-useless-escape": "off",
+    "no-var": "error",
+    "prefer-const": "error",
+    "react/exhaustive-deps": "error",
+    "react/only-export-components": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/rules-of-hooks": "error",
+    "typescript/await-thenable": "off",
+    "typescript/no-base-to-string": "off",
+    "typescript/no-redundant-type-constituents": "off",
+    "typescript/no-useless-default-assignment": "off",
+    "typescript/restrict-template-expressions": "off",
+    "typescript/unbound-method": "off",
+    "unicorn/no-empty-file": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "19.2.6"
+    }
+  }
+}

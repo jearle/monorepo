@@ -1,21 +1,23 @@
 import { toSnakeCaseProps } from '@jearle/util-convert';
-import type { NewEntity } from './types';
+import { type NewEntity } from './types';
 
-export type PropsEntityToInsertFragments<TEntity> = {
+export type EntityToInsertFragmentsProps<TEntity> = {
   readonly entity: TEntity;
 };
 export const entityToInsertFragments = <TEntity extends NewEntity = NewEntity>(
-  props: PropsEntityToInsertFragments<TEntity>,
+  props: EntityToInsertFragmentsProps<TEntity>,
 ) => {
   const { entity: entityCamelCased } = props;
 
   const entity = toSnakeCaseProps<Record<string, unknown>>(entityCamelCased);
 
   if (entity === null) {
-    return {
+    const result = {
       success: false as const,
-      error: new Error('Error snake casing entity'),
+      error: new Error(`Error snake casing entity`),
     };
+
+    return result;
   }
 
   const entityKeys = Object.keys(entity).filter((key) => {
@@ -23,18 +25,30 @@ export const entityToInsertFragments = <TEntity extends NewEntity = NewEntity>(
 
     return isValidKey;
   });
-  const columns: string[] = [];
-  const placeholders: string[] = [];
-  const values: unknown[] = [];
+  const fragments = entityKeys.map((key, index) => {
+    const fragment = {
+      column: key,
+      placeholder: `$${index + 1}`,
+      value: entity[key],
+    };
 
-  for (let i = 0; i < entityKeys.length; i++) {
-    const key = entityKeys[i]!;
-    const value = entity[key];
+    return fragment;
+  });
+  const columns = fragments.map((fragment) => {
+    const column = fragment.column;
 
-    columns.push(key);
-    values.push(value);
-    placeholders.push(`$${i + 1}`);
-  }
+    return column;
+  });
+  const placeholders = fragments.map((fragment) => {
+    const placeholder = fragment.placeholder;
+
+    return placeholder;
+  });
+  const values = fragments.map((fragment) => {
+    const value = fragment.value;
+
+    return value;
+  });
 
   const result = {
     success: true as const,

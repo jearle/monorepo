@@ -1,0 +1,22 @@
+{
+  "name": "@jearle/config-oxlint",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    ".oxlintrc.json",
+    "monorepo-conventions-plugin.js",
+    "rules"
+  ],
+  "exports": "./.oxlintrc.json",
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "test": "bun run repo package test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "oxlint": "^1.68.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "extends": ["@jearle/config-tsconfig"],
+  "compilerOptions": {
+    "types": [
+      "node",
+      "bun",
+      "react",
+      "react-dom",
+      "vite/client",
+      "@jearle/config-bun/testing-library-jest-dom-matchers"
+    ]
+  },
+  "include": ["src"]
+}

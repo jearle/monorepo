@@ -1,5 +1,6 @@
 {
   "name": "@jearle/util-csv",
+  "version": "0.0.0",
   "type": "module",
   "exports": {
     ".": {
@@ -11,12 +12,20 @@
       "types": "./src/*/index.ts"
     }
   },
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "test": "bun run repo package test",
+    "verify": "bun run repo package verify"
+  },
   "dependencies": {
     "csvtojson": "^2",
     "papaparse": "^5.5.3"
   },
   "peerDependencies": {},
   "devDependencies": {
+    "@jearle/config-oxlint": "workspace:*",
     "@jearle/config-tsconfig": "workspace:*",
     "@types/papaparse": "^5.3.16"
   }

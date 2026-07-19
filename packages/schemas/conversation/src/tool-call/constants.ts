@@ -1,0 +1,11 @@
+export const TOOL_CALL_STATUS_PENDING = `PENDING` as const;
+export const TOOL_CALL_STATUS_RUNNING = `RUNNING` as const;
+export const TOOL_CALL_STATUS_SUCCESS = `SUCCESS` as const;
+export const TOOL_CALL_STATUS_ERROR = `ERROR` as const;
+
+export const TOOL_CALL_STATUSES = [
+  TOOL_CALL_STATUS_PENDING,
+  TOOL_CALL_STATUS_RUNNING,
+  TOOL_CALL_STATUS_SUCCESS,
+  TOOL_CALL_STATUS_ERROR,
+] as const;

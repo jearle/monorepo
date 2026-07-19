@@ -1,5 +1,6 @@
 {
   "name": "@jearle/util-llm",
+  "version": "0.0.0",
   "type": "module",
   "exports": {
     ".": {
@@ -11,8 +12,18 @@
       "types": "./src/*/index.ts"
     }
   },
+  "scripts": {
+    "format": "bun run repo package format",
+    "lint": "bun run repo package lint",
+    "compile": "bun run repo package compile",
+    "test": "bun run repo package test",
+    "verify": "bun run repo package verify"
+  },
   "dependencies": {
+    "@jearle/schema-conversation": "workspace:*",
+    "@jearle/util-env": "workspace:*",
     "@jearle/util-json": "workspace:*",
+    "@jearle/util-logger": "workspace:*",
     "@jearle/util-sse": "workspace:*",
     "@jearle/util-stream": "workspace:*",
     "@jearle/util-validator": "workspace:*"
@@ -21,6 +32,8 @@
     "zod": "^4"
   },
   "devDependencies": {
+    "@jearle/config-bun": "workspace:*",
+    "@jearle/config-oxlint": "workspace:*",
     "@jearle/config-tsconfig": "workspace:*"
   }
 }

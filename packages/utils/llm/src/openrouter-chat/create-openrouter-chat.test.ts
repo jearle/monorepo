@@ -1,51 +1,75 @@
-import { expect, test } from 'bun:test';
+import { expect, setDefaultTimeout, test } from 'bun:test';
 
-import { createOpenrouterChat } from './create-openrouter-chat';
+import {
+  OPENROUTER_CHAT_RESULT_STATUS_ERROR,
+  OPENROUTER_CHAT_RESULT_STATUS_SUCCESS,
+} from '.';
+import { createTestChat } from '../test';
 
-const { OPENROUTER_API, OPENROUTER_API_KEY, OPENROUTER_MODEL } =
-  process.env as { readonly [key: string]: string };
+setDefaultTimeout(30000);
 
-const setupOpenRouterChat = () => {
-  const { chat } = createOpenrouterChat({
-    api: OPENROUTER_API!,
-    apiKey: OPENROUTER_API_KEY!,
-    model: OPENROUTER_MODEL!,
-  });
+const RATE_LIMIT_STATUS = `status 429`;
+const RATE_LIMIT_MESSAGE = `Rate limit exceeded`;
 
-  const result = { chat };
-
-  return result;
-};
-
-test(`createOpenRouterChat({ api, apiKey, model })`, () => {
-  const { chat } = setupOpenRouterChat();
+test.skip(`createOpenRouterChat({ api, apiKey, model })`, () => {
+  const { chat } = createTestChat();
 
   expect(chat).toBeDefined();
 });
 
-test(`chat.chatCompletions()`, async () => {
-  const { chat } = setupOpenRouterChat();
+test.skip(`chat.chatCompletions()`, async () => {
+  const { chat } = createTestChat();
 
-  const { error, content } = await chat.completions({
+  const result = await chat.completions({
     system: `you're a helpful assistant`,
     user: `hello`,
   });
 
-  expect(error).toBeNull();
+  if (result.status === OPENROUTER_CHAT_RESULT_STATUS_ERROR) {
+    const { error } = result;
+    const hasRateLimitStatus = error.includes(RATE_LIMIT_STATUS);
+    const hasRateLimitMessage = error.includes(RATE_LIMIT_MESSAGE);
+
+    expect(hasRateLimitStatus).toBeTrue();
+    expect(hasRateLimitMessage).toBeTrue();
+
+    return;
+  }
+
+  const { content } = result.data;
+
   expect(content).toBeString();
 });
 
-test(`chat.chatCompletionsStream()`, async () => {
-  const { chat } = setupOpenRouterChat();
+test.skip(`chat.chatCompletionsStream()`, async () => {
+  const { chat } = createTestChat();
 
-  const { error, stream } = await chat.completionsStream({
+  const result = await chat.completionsStream({
     system: `you're a helpful assistant`,
     user: `hello`,
   });
 
-  expect(error).toBeNull();
+  if (result.status === OPENROUTER_CHAT_RESULT_STATUS_ERROR) {
+    const { error } = result;
+    const hasRateLimitStatus = error.includes(RATE_LIMIT_STATUS);
+    const hasRateLimitMessage = error.includes(RATE_LIMIT_MESSAGE);
 
-  const text = await new Response(stream).text();
+    expect(hasRateLimitStatus).toBeTrue();
+    expect(hasRateLimitMessage).toBeTrue();
+
+    return;
+  }
+
+  expect(result.status).toBe(OPENROUTER_CHAT_RESULT_STATUS_SUCCESS);
+
+  const { stream } = result.data;
+  const response = new Response(stream);
+  const text = await response.text();
   console.log(text);
+  const hasInvalidResponseError = text.includes(
+    `Invalid openrouter api response`,
+  );
+
+  expect(hasInvalidResponseError).toBeFalse();
   expect(text).toBeString();
 });

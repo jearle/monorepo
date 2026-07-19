@@ -1,14 +1,14 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
 import { processStreamChunks } from '@jearle/util-stream';
 
-import { createSSEStringifyJSONTransformStream } from './create-sse-stringify-json-transform-stream';
+import { createSSEStringifyJSONTransformStream } from '.';
 
-test('createSSEStringifyJSONTransformStream(object)', async () => {
+test(`createSSEStringifyJSONTransformStream(object)`, async () => {
   const { sseStringifyJSONTransformStream } =
     createSSEStringifyJSONTransformStream();
 
-  const chunks = [{ data: { hello: 'world' } }];
+  const chunks = [{ data: { hello: `world` } }];
 
   const outputs = await processStreamChunks({
     stream: sseStringifyJSONTransformStream,
@@ -18,7 +18,7 @@ test('createSSEStringifyJSONTransformStream(object)', async () => {
   expect(outputs).toEqual([`{"hello":"world"}`, `[DONE]`]);
 });
 
-test('createSSEStringifyJSONTransformStream(invalidObject)', async () => {
+test(`createSSEStringifyJSONTransformStream(invalidObject)`, async () => {
   const { sseStringifyJSONTransformStream } =
     createSSEStringifyJSONTransformStream();
 

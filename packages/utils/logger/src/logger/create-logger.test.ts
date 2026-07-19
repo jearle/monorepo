@@ -1,10 +1,10 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
 import { NODE_ENV_DEVELOPMENT } from '@jearle/util-env';
 
 import { LEVEL_TRACE } from '../level';
 
-import { createLogger } from './create-logger';
+import { createLogger } from '.';
 
 test(`createLogger({ name, level, nodeEnv: NODE_ENV_DEVELOPMENT })`, () => {
   const { logger } = createLogger({

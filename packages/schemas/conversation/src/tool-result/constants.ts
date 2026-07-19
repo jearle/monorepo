@@ -1,0 +1,7 @@
+export const TOOL_RESULT_STATUS_SUCCESS = `SUCCESS` as const;
+export const TOOL_RESULT_STATUS_ERROR = `ERROR` as const;
+
+export const TOOL_RESULT_STATUSES = [
+  TOOL_RESULT_STATUS_SUCCESS,
+  TOOL_RESULT_STATUS_ERROR,
+] as const;

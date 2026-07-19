@@ -1,0 +1,12 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["composes"]
+      }
+    ],
+    "selector-class-pattern": null
+  }
+}

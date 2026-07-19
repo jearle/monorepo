@@ -1,9 +1,14 @@
 import { RUNTIME_BUN, getRuntime } from '@jearle/util-runtime';
 
-import { type PropsServe } from './types';
 import { bunServe } from './bun-serve';
 
-export const serve = async (props: PropsServe) => {
+export type ServeProps = {
+  readonly fetch: (req: Request) => Response | Promise<Response>;
+  readonly hostname: string;
+  readonly port: number;
+};
+
+export const serve = async (props: ServeProps) => {
   const { runtime } = getRuntime();
 
   const isRuntimeBun = runtime === RUNTIME_BUN;

@@ -1,7 +1,7 @@
-import { test, expect } from 'bun:test';
-import { chainTransformStreams } from './chain-transform-streams';
+import { expect, test } from 'bun:test';
+import { chainTransformStreams } from '.';
 
-test('chainTransformStreams should correctly pipe data through multiple streams', async () => {
+test(`chainTransformStreams should correctly pipe data through multiple streams`, async () => {
   const numberToStringStream = new TransformStream<number, string>({
     transform(chunk, controller) {
       controller.enqueue(String(chunk));
@@ -39,5 +39,5 @@ test('chainTransformStreams should correctly pipe data through multiple streams'
 
   const results = await Bun.readableStreamToArray(resultStream);
 
-  expect(results).toEqual(['HELLO-1-WORLD', 'HELLO-2-WORLD', 'HELLO-3-WORLD']);
+  expect(results).toEqual([`HELLO-1-WORLD`, `HELLO-2-WORLD`, `HELLO-3-WORLD`]);
 });

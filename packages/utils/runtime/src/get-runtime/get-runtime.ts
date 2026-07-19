@@ -2,24 +2,25 @@ import {
   RUNTIME_BUN,
   RUNTIME_DENO,
   RUNTIME_NODE,
-  RUNTIME_WORKER,
-  RUNTIME_WEB,
   RUNTIME_UNKNOWN,
+  RUNTIME_WEB,
+  RUNTIME_WORKER,
 } from './constants';
-import { type Runtime } from './types';
+import { type GetRunTimeResult } from './types';
+
+type DenoRuntimeVersion = {
+  readonly deno?: string;
+};
 
 declare global {
   interface Deno {
-    version?: { deno?: string };
+    readonly version?: DenoRuntimeVersion;
   }
 
   var Deno: Deno | undefined;
 }
 
-export type ResultGetRunTime = {
-  readonly runtime: Runtime;
-};
-export const getRuntime = (): ResultGetRunTime => {
+export const getRuntime = (): GetRunTimeResult => {
   const isRuntimeBun = typeof globalThis.Bun?.version === `string`;
 
   if (isRuntimeBun === true) {
@@ -28,7 +29,7 @@ export const getRuntime = (): ResultGetRunTime => {
     return result;
   }
 
-  const isRuntimeDeno = typeof globalThis.Deno?.version?.deno === 'string';
+  const isRuntimeDeno = typeof globalThis.Deno?.version?.deno === `string`;
   if (isRuntimeDeno === true) {
     const result = { runtime: RUNTIME_DENO };
 
@@ -43,17 +44,17 @@ export const getRuntime = (): ResultGetRunTime => {
   }
 
   const isRuntimeWorker =
-    typeof globalThis.self !== 'undefined' &&
-    typeof globalThis.addEventListener === 'function' &&
-    !('window' in globalThis);
+    typeof globalThis.self !== `undefined` &&
+    typeof globalThis.addEventListener === `function` &&
+    !(`window` in globalThis);
   if (isRuntimeWorker === true) {
     const result = { runtime: RUNTIME_WORKER };
 
     return result;
   }
   const isRuntimeWeb =
-    typeof globalThis.window !== 'undefined' &&
-    typeof globalThis.document !== 'undefined';
+    typeof globalThis.window !== `undefined` &&
+    typeof globalThis.document !== `undefined`;
   if (isRuntimeWeb) {
     const result = { runtime: RUNTIME_WEB };
 

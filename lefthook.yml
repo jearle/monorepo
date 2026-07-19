@@ -1,0 +1,22 @@
+min_version: 2.1.9
+
+pre-commit:
+  piped: true
+  jobs:
+    - name: format
+      glob:
+        - '*.{cjs,cts,css,js,json,jsonc,jsx,md,mdx,mjs,mts,ts,tsx,yaml,yml}'
+      run: bun run repo format -- {staged_files}
+      stage_fixed: true
+
+    - name: verify
+      glob:
+        - '*.{cjs,cts,css,js,json,jsonc,jsx,mdx,mjs,mts,ts,tsx,yaml,yml}'
+        - 'bun.lock'
+      run: bun run repo verify -- {staged_files}
+
+    - name: test
+      glob:
+        - '*.{cjs,cts,js,json,jsonc,jsx,mjs,mts,ts,tsx}'
+        - 'bun.lock'
+      run: bun run repo test -- {staged_files}

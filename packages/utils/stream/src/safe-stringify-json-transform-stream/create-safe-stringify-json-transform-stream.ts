@@ -1,11 +1,20 @@
 import { safeStringify } from '@jearle/util-json';
 
-import type {
-  JSONStringifyStreamInput,
-  JSONStringifyStreamSuccessOutput,
-  JSONStringifyStreamFailureOutput,
-  JSONStringifyStreamOutput,
+import {
+  type JSONStringifyStreamFailureOutput,
+  type JSONStringifyStreamInput,
+  type JSONStringifyStreamOutput,
+  type JSONStringifyStreamSuccessOutput,
 } from './types';
+import { createUnsupportedStreamDataError } from './errors';
+
+const getIsSupportedStreamData = (data: unknown) => {
+  const isObject = typeof data === `object`;
+  const isNotNull = data !== null;
+  const result = isObject && isNotNull;
+
+  return result;
+};
 
 export const createSafeStringifyJSONTransformStream = () => {
   const safeStringifyJSONTransformStream = new TransformStream<
@@ -14,6 +23,17 @@ export const createSafeStringifyJSONTransformStream = () => {
   >({
     transform(chunk, controller) {
       const { data } = chunk;
+      const isSupportedStreamData = getIsSupportedStreamData(data);
+
+      if (isSupportedStreamData === false) {
+        const output: JSONStringifyStreamFailureOutput = {
+          success: false,
+          error: createUnsupportedStreamDataError(data),
+        };
+
+        controller.enqueue(output);
+        return;
+      }
 
       const stringifiedJSONResult = safeStringify(data);
 

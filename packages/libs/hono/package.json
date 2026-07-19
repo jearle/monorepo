@@ -1,15 +1,27 @@
 {
   "name": "@jearle/lib-hono",
+  "version": "0.0.0",
   "type": "module",
   "exports": {
     ".": {
       "import": "./src/index.ts",
       "types": "./src/index.ts"
     },
+    "./extend-zod-with-openapi": {
+      "import": "./src/open-api/extend-zod-with-open-api.ts",
+      "types": "./src/open-api/extend-zod-with-open-api.ts"
+    },
     "./*": {
       "import": "./src/*/index.ts",
       "types": "./src/*/index.ts"
     }
+  },
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "test": "bun run repo package test",
+    "verify": "bun run repo package verify"
   },
   "dependencies": {
     "@jearle/schema-api": "workspace:*",
@@ -20,9 +32,12 @@
   },
   "peerDependencies": {
     "@hono/zod-openapi": "^1",
-    "hono": "^4"
+    "hono": "^4",
+    "zod": "^4"
   },
   "devDependencies": {
+    "@jearle/config-bun": "workspace:*",
+    "@jearle/config-oxlint": "workspace:*",
     "@jearle/config-tsconfig": "workspace:*"
   }
 }

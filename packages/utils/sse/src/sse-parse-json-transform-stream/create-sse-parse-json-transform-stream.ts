@@ -1,13 +1,13 @@
 import {
-  createSafeParseJSONTransformStream,
   chainTransformStreams,
+  createSafeParseJSONTransformStream,
 } from '@jearle/util-stream';
 
 import { SSE_TRANSFORM_STREAM_STATUS_DONE } from '../sse-parse-transform-stream';
 
-import type {
-  SSEParseJSONTransformStreamInput,
-  SSEParseJSONTransformStreamOutput,
+import {
+  type SSEParseJSONTransformStreamInput,
+  type SSEParseJSONTransformStreamOutput,
 } from './types';
 
 export const createSSEParseJSONTransformStream = <T = unknown>() => {

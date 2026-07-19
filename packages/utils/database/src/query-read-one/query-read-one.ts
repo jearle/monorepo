@@ -1,12 +1,12 @@
 import { type PostgresDatabase } from '@jearle/lib-postgres';
 import { queryOne } from '../query-one';
 
-export type PropsQueryReadOne = {
+export type QueryReadOneProps = {
   readonly db: PostgresDatabase;
   readonly table: string;
   readonly id: string;
 };
-export const queryReadOne = async <TData>(props: PropsQueryReadOne) => {
+export const queryReadOne = async <TData>(props: QueryReadOneProps) => {
   const { db, table, id } = props;
 
   const queryString = `SELECT * from ${table} WHERE id = $1`;

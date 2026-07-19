@@ -1,4 +1,4 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
 import { processStreamChunks } from '@jearle/util-stream';
 
@@ -7,8 +7,8 @@ import {
   SSE_TRANSFORM_STREAM_STATUS_DONE,
 } from '../sse-parse-transform-stream';
 
-import type { SSEParseJSONTransformStreamInput } from './types';
-import { createSSEParseJSONTransformStream } from './create-sse-parse-json-transform-stream';
+import { type SSEParseJSONTransformStreamInput } from './types';
+import { createSSEParseJSONTransformStream } from '.';
 
 type TestJSONTransformStreamInputs = [
   SSEParseJSONTransformStreamInput,
@@ -34,7 +34,7 @@ const processChunks = async () => {
   return outputs;
 };
 
-test('parses valid JSON', async () => {
+test(`parses valid JSON`, async () => {
   const [output1, output2] = await processChunks();
   console.log(output1);
 

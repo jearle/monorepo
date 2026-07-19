@@ -1,11 +1,11 @@
 import {
-  createSafeStringifyJSONTransformStream,
   chainTransformStreams,
+  createSafeStringifyJSONTransformStream,
 } from '@jearle/util-stream';
 
-import type {
-  SSEStringifyJSONTransformStreamInput,
-  SSEStringifyJSONTransformStreamOutput,
+import {
+  type SSEStringifyJSONTransformStreamInput,
+  type SSEStringifyJSONTransformStreamOutput,
 } from './types';
 import { SSE_FIELD_VALUE_DONE } from '../sse-string';
 

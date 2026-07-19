@@ -1,0 +1,11 @@
+.fill {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: var(--fill-flex-direction, row);
+  align-items: var(--fill-align-items, center);
+  justify-content: var(--fill-justify-content, center);
+  gap: var(--fill-gap, var(--mantine-spacing-sm));
+  padding: var(--fill-padding, var(--mantine-spacing-xl));
+}

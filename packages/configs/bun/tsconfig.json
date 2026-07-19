@@ -1,0 +1,4 @@
+{
+  "extends": "@jearle/config-tsconfig",
+  "include": ["src/**/*"]
+}

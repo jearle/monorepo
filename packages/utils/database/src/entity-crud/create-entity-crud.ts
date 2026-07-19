@@ -1,21 +1,27 @@
+import { type ExactPartial } from '@jearle/util-types';
 import { type PostgresDatabase } from '@jearle/lib-postgres';
 
 import { queryCreateOne } from '../query-create-one';
 import { queryReadOne } from '../query-read-one';
+import { queryReadOneOptional } from '../query-read-one-optional';
 import { queryUpdateOne } from '../query-update-one';
 import { queryDestroyOne } from '../query-destroy-one';
 import { queryReadOneBy } from '../query-read-one-by';
+import { queryReadOneByOptional } from '../query-read-one-by-optional';
 import { queryDestroyOneBy } from '../query-destroy-one-by';
+import { queryAll } from '../query-all';
+import { type OrderBy, queryAllBy } from '../query-all-by';
+import { queryUpdateOneBy } from '../query-update-one-by';
 
-type PropsCreateEntityCRUD = {
+export type CreateEntityCRUDProps = {
   readonly db: PostgresDatabase;
   readonly table: string;
 };
-export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
+export const createEntityCRUD = <TEntity>(props: CreateEntityCRUDProps) => {
   const { db, table } = props;
 
-  type PropsCreate = Partial<TEntity>;
-  const create = async (props: PropsCreate) => {
+  type CreateProps = Partial<TEntity>;
+  const create = async (props: CreateProps) => {
     const queryResult = await queryCreateOne<TEntity>({
       db,
       table,
@@ -43,10 +49,10 @@ export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
     return result;
   };
 
-  type PropsRead = {
+  type ReadProps = {
     readonly id: string;
   };
-  const read = async (props: PropsRead) => {
+  const read = async (props: ReadProps) => {
     const { id } = props;
 
     const queryResult = await queryReadOne<TEntity>({ db, table, id });
@@ -56,7 +62,7 @@ export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
       const { error } = queryResult;
       const result = {
         success: false as const,
-        error: error as Error,
+        error: error,
       };
 
       return result;
@@ -66,14 +72,43 @@ export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
 
     const result = {
       success: true as const,
-      entity: data as TEntity,
+      entity: data,
     };
 
     return result;
   };
 
-  type PropsReadBy = Partial<TEntity>;
-  const readBy = async (props: PropsReadBy) => {
+  type ReadOptionalProps = {
+    readonly id: string;
+  };
+  const readOptional = async (props: ReadOptionalProps) => {
+    const { id } = props;
+
+    const queryResult = await queryReadOneOptional<TEntity>({ db, table, id });
+
+    const { success } = queryResult;
+    if (success === false) {
+      const { error } = queryResult;
+      const result = {
+        success: false as const,
+        error: error,
+      };
+
+      return result;
+    }
+
+    const { data } = queryResult;
+
+    const result = {
+      success: true as const,
+      entity: data,
+    };
+
+    return result;
+  };
+
+  type ReadByProps = Partial<TEntity>;
+  const readBy = async (props: ReadByProps) => {
     const queryResult = await queryReadOneBy<TEntity>({
       db,
       table,
@@ -85,7 +120,7 @@ export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
       const { error } = queryResult;
       const result = {
         success: false as const,
-        error: error as Error,
+        error: error,
       };
 
       return result;
@@ -95,16 +130,46 @@ export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
 
     const result = {
       success: true as const,
-      entity: data as TEntity,
+      entity: data,
     };
 
     return result;
   };
 
-  type PropsUpdate = Omit<Partial<TEntity>, `id`> & {
+  type ReadOptionalByProps = Partial<TEntity>;
+  const readOptionalBy = async (props: ReadOptionalByProps) => {
+    const queryResult = await queryReadOneByOptional<TEntity>({
+      db,
+      table,
+      entity: props,
+    });
+
+    const { success } = queryResult;
+    if (success === false) {
+      const { error } = queryResult;
+      const result = {
+        success: false as const,
+        error: error,
+      };
+
+      return result;
+    }
+
+    const { data } = queryResult;
+
+    const result = {
+      success: true as const,
+      entity: data,
+    };
+
+    return result;
+  };
+  type UpdatePropsShape = {
     readonly id: string;
   };
-  const update = async (props: PropsUpdate) => {
+
+  type UpdateProps = Omit<ExactPartial<TEntity>, `id`> & UpdatePropsShape;
+  const update = async (props: UpdateProps) => {
     const queryResult = await queryUpdateOne<TEntity>({
       db,
       table,
@@ -132,10 +197,10 @@ export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
     return result;
   };
 
-  type PropsDestroy = {
+  type DestroyProps = {
     readonly id: string;
   };
-  const destroy = async (props: PropsDestroy) => {
+  const destroy = async (props: DestroyProps) => {
     const { id } = props;
 
     const queryResult = await queryDestroyOne<TEntity>({
@@ -149,15 +214,15 @@ export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
       return queryResult;
     }
 
-    const { data: user } = queryResult;
+    const { data } = queryResult;
 
-    const result = { success: true as const, user };
+    const result = { success: true as const, entity: data };
 
     return result;
   };
 
-  type PropsDestroyBy = Partial<TEntity>;
-  const destroyBy = async (props: PropsDestroyBy) => {
+  type DestroyByProps = Partial<TEntity>;
+  const destroyBy = async (props: DestroyByProps) => {
     const queryResult = await queryDestroyOneBy<TEntity>({
       db,
       table,
@@ -169,7 +234,7 @@ export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
       const { error } = queryResult;
       const result = {
         success: false as const,
-        error: error as Error,
+        error: error,
       };
       return result;
     }
@@ -177,13 +242,139 @@ export const createEntityCRUD = <TEntity>(props: PropsCreateEntityCRUD) => {
     const { data } = queryResult;
     const result = {
       success: true as const,
-      entity: data as TEntity,
+      entity: data,
     };
 
     return result;
   };
 
-  const result = { create, read, readBy, update, destroy, destroyBy };
+  type ReadAllProps = {
+    readonly limit: number;
+    readonly page: number; // 0-based
+  };
+  const readAll = async (props: ReadAllProps) => {
+    const { limit, page } = props;
+
+    const queryString = `SELECT * FROM ${table}`;
+
+    const queryResult = await queryAll<TEntity>({
+      db,
+      queryString,
+      limit,
+      page,
+    });
+
+    const { success } = queryResult;
+    if (success === false) {
+      const { error } = queryResult;
+      const result = {
+        success: false as const,
+        error: error,
+      };
+
+      return result;
+    }
+
+    const { data } = queryResult;
+
+    const result = {
+      success: true as const,
+      entities: data as TEntity[],
+    };
+
+    return result;
+  };
+  type ReadAllByPropsShape = {
+    readonly limit: number;
+    readonly page: number; // 0-based
+    readonly orderBy?: readonly OrderBy[];
+  };
+
+  type ReadAllByProps = Partial<TEntity> & ReadAllByPropsShape;
+  const readAllBy = async (props: ReadAllByProps) => {
+    const { limit, page, orderBy, ...entityUnsafe } = props;
+
+    const entity = entityUnsafe as Partial<TEntity>;
+
+    const queryResult = await queryAllBy<TEntity>({
+      db,
+      table,
+      entity,
+      limit,
+      page,
+      orderBy,
+    });
+
+    const { success } = queryResult;
+    if (success === false) {
+      const { error } = queryResult;
+      const result = {
+        success: false as const,
+        error: error,
+      };
+
+      return result;
+    }
+
+    const { data } = queryResult;
+
+    const result = {
+      success: true as const,
+      entities: data as TEntity[],
+    };
+
+    return result;
+  };
+  type UpdateByPropsShape = {
+    readonly where: Partial<TEntity>;
+  };
+
+  type UpdateByProps = Partial<TEntity> & UpdateByPropsShape;
+  const updateBy = async (props: UpdateByProps) => {
+    const { where, ...unsafeEntity } = props;
+
+    const entity = unsafeEntity as TEntity;
+
+    const queryResult = await queryUpdateOneBy<TEntity>({
+      db,
+      table,
+      where,
+      entity,
+    });
+
+    const { success } = queryResult;
+    if (success === false) {
+      const { error } = queryResult;
+      const result = {
+        success: false as const,
+        error: error,
+      };
+      return result;
+    }
+
+    const { data } = queryResult;
+
+    const result = {
+      success: true as const,
+      entity: data,
+    };
+
+    return result;
+  };
+
+  const result = {
+    create,
+    read,
+    readOptional,
+    readBy,
+    readOptionalBy,
+    update,
+    updateBy,
+    destroy,
+    destroyBy,
+    readAll,
+    readAllBy,
+  };
 
   return result;
 };

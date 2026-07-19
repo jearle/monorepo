@@ -6,12 +6,12 @@ import { NODE_ENV_DEVELOPMENT, NODE_ENV_PRODUCTION } from '@jearle/util-env';
 
 import { type Env } from '../env';
 
-export type PropsCreateSecureCookieOptions = {
+export type CreateSecureCookieOptionsProps = {
   readonly env: Env;
   readonly c: Context;
 };
 export const createSecureCookieOptions = (
-  props: PropsCreateSecureCookieOptions,
+  props: CreateSecureCookieOptionsProps,
 ) => {
   const { env, c } = props;
   const { NODE_ENV } = env;
@@ -27,7 +27,7 @@ export const createSecureCookieOptions = (
 
     const cookieOptions: CookieOptions = {
       secure: true,
-      sameSite: 'none',
+      sameSite: `none`,
       maxAge: 60 * 60 * 24 * 14,
       httpOnly,
       path,
@@ -42,7 +42,7 @@ export const createSecureCookieOptions = (
   if (isDevelopment === true) {
     const cookieOptions: CookieOptions = {
       secure: false,
-      sameSite: 'lax',
+      sameSite: `lax`,
       httpOnly,
       path,
     };
@@ -54,7 +54,7 @@ export const createSecureCookieOptions = (
 
   const cookieOptions: CookieOptions = {
     secure: true,
-    sameSite: 'none',
+    sameSite: `none`,
     httpOnly,
     path,
   };

@@ -9,7 +9,7 @@ export const toCamelCaseProps = <
 >(
   object: TUnknownObject,
 ): null | TCameCasedObject => {
-  if (typeof object !== 'object') {
+  if (typeof object !== `object`) {
     return null;
   }
 

@@ -1,15 +1,15 @@
 import pino, { type Level } from 'pino';
 
 import {
+  type NodeEnv,
   NODE_ENV_DEVELOPMENT,
   NODE_ENV_TEST,
-  type NodeEnv,
 } from '@jearle/util-env';
 
-type PropsGetTransportProp = {
+type GetTransportPropProps = {
   readonly nodeEnv: NodeEnv;
 };
-const getTransportProp = (props: PropsGetTransportProp) => {
+const getTransportProp = (props: GetTransportPropProps) => {
   const { nodeEnv } = props;
 
   const shouldUsePinoPretty =
@@ -25,12 +25,12 @@ const getTransportProp = (props: PropsGetTransportProp) => {
 
   return result;
 };
-type PropsCreateLogger = {
+export type CreateLoggerProps = {
   readonly name: string;
   readonly level: Level;
   readonly nodeEnv: NodeEnv;
 };
-export const createLogger = (props: PropsCreateLogger) => {
+export const createLogger = (props: CreateLoggerProps) => {
   const { name, level, nodeEnv } = props;
 
   const transportProp = getTransportProp({ nodeEnv });

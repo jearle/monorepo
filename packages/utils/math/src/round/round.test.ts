@@ -1,15 +1,17 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
-import { round } from './round';
+import { round } from '.';
 
-test(`round`, () => {
-  const valueRound = round(0.615);
+test(`rounds to two decimal places by default`, () => {
+  const roundedValue = round(0.615);
 
-  expect(valueRound).toBe(0.62);
+  expect(roundedValue).toBe(0.62);
 });
 
-test(`round { precision }`, () => {
-  const valueRound = round(0.615, { precision: 3 });
+test(`rounds to the requested precision`, () => {
+  const roundedValue = round(1.2345, {
+    precision: 3,
+  });
 
-  expect(valueRound).toBe(0.615);
+  expect(roundedValue).toBe(1.235);
 });

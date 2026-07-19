@@ -1,5 +1,6 @@
 {
   "name": "@jearle/schema-error",
+  "version": "0.0.0",
   "type": "module",
   "exports": {
     ".": {
@@ -11,11 +12,19 @@
       "types": "./src/*/index.ts"
     }
   },
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "verify": "bun run repo package verify"
+  },
   "dependencies": {},
   "peerDependencies": {
     "zod": "^4"
   },
   "devDependencies": {
+    "@jearle/config-bun": "workspace:*",
+    "@jearle/config-oxlint": "workspace:*",
     "@jearle/config-tsconfig": "workspace:*"
   }
 }

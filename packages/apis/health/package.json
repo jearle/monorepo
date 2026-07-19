@@ -13,9 +13,13 @@
     }
   },
   "scripts": {
+    "format": "bun run repo package format",
     "start": "bun --watch src/main.ts",
-    "build": "tsc -b",
-    "lint": "eslint ."
+    "compile": "bun run repo package compile",
+    "build": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "test": "bun run repo package test",
+    "verify": "bun run repo package verify"
   },
   "dependencies": {
     "@jearle/lib-hono": "workspace:*",
@@ -29,7 +33,8 @@
     "@hono/zod-openapi": "^1"
   },
   "devDependencies": {
+    "@jearle/config-oxlint": "workspace:*",
     "@jearle/config-tsconfig": "workspace:*",
-    "@types/node": "^24"
+    "@types/node": "^25"
   }
 }

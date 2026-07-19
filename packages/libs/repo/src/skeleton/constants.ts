@@ -1,0 +1,34 @@
+export const SKELETON_TEMPLATE_NAME = `__skeleton`;
+export const SKELETON_TEMPLATE_SEPARATOR = `-`;
+
+export const SKELETON_MARKER_COMMAND_CONSTANT = `COMMAND___SKELETON`;
+export const SKELETON_MARKER_PROPS_CREATE = `Create__skeletonProps`;
+export const SKELETON_MARKER_RESULT_CREATE = `Create__skeletonResult`;
+export const SKELETON_MARKER_CREATE_FUNCTION = `create__skeleton`;
+export const SKELETON_MARKER_COMMAND_CONTEXT = `__skeletonCommandContext`;
+export const SKELETON_MARKER_HEALTH_COMMAND_VALUE = `__skeletonHealthCommand`;
+export const SKELETON_MARKER_COMMAND_VALUE = `__skeletonCommand`;
+export const SKELETON_MARKER_RESULT_VALUE = `__skeletonResult`;
+export const SKELETON_MARKER_PASCAL = `__Skeleton`;
+export const SKELETON_MARKER_CONSTANT = `__SKELETON`;
+export const SKELETON_MARKER_KEBAB = `__skeleton`;
+
+export const SKELETON_IGNORED_ENTRY_NAME_NODE_MODULES = `node_modules`;
+export const SKELETON_IGNORED_ENTRY_NAME_TURBO = `.turbo`;
+export const SKELETON_IGNORED_ENTRY_NAME_DIST = `dist`;
+export const SKELETON_IGNORED_ENTRY_NAME_DS_STORE = `.DS_Store`;
+
+export const SKELETON_IGNORED_ENTRY_NAMES = [
+  SKELETON_IGNORED_ENTRY_NAME_NODE_MODULES,
+  SKELETON_IGNORED_ENTRY_NAME_TURBO,
+  SKELETON_IGNORED_ENTRY_NAME_DIST,
+  SKELETON_IGNORED_ENTRY_NAME_DS_STORE,
+] as const;
+
+export const SKELETON_RESULT_STATUS_SUCCESS = `SUCCESS`;
+export const SKELETON_RESULT_STATUS_ERROR = `ERROR`;
+
+export const SKELETON_RESULT_STATUSES = [
+  SKELETON_RESULT_STATUS_SUCCESS,
+  SKELETON_RESULT_STATUS_ERROR,
+] as const;

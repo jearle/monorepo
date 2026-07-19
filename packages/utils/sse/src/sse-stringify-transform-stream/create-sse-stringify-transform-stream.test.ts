@@ -1,14 +1,14 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
 import { processStreamChunks } from '@jearle/util-stream';
 
-import { createSSEStringifyTransformStream } from './create-sse-stringify-transform-stream';
+import { createSSEStringifyTransformStream } from '.';
 import { SSE_FIELD_NAME_DATA, SSE_FIELD_VALUE_DONE } from '../sse-string';
 
-test('createSSEStringifyTransformStream(string)', async () => {
+test(`createSSEStringifyTransformStream(string)`, async () => {
   const { sseStringifyTransformStream } = createSSEStringifyTransformStream();
 
-  const chunks = ['{"hello":"world"}'];
+  const chunks = [`{"hello":"world"}`];
 
   const outputs = await processStreamChunks({
     stream: sseStringifyTransformStream,
@@ -22,10 +22,10 @@ test('createSSEStringifyTransformStream(string)', async () => {
   ]);
 });
 
-test('createSSEStringifyTransformStream(DONE signal)', async () => {
+test(`createSSEStringifyTransformStream(DONE signal)`, async () => {
   const { sseStringifyTransformStream } = createSSEStringifyTransformStream();
 
-  const chunks = ['{"data":123}', SSE_FIELD_VALUE_DONE];
+  const chunks = [`{"data":123}`, SSE_FIELD_VALUE_DONE];
 
   const outputs = await processStreamChunks({
     stream: sseStringifyTransformStream,

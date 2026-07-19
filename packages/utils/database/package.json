@@ -1,5 +1,6 @@
 {
   "name": "@jearle/util-database",
+  "version": "0.0.0",
   "type": "module",
   "exports": {
     ".": {
@@ -11,15 +12,25 @@
       "types": "./src/*/index.ts"
     }
   },
+  "scripts": {
+    "format": "bun run repo package format",
+    "compile": "bun run repo package compile",
+    "lint": "bun run repo package lint",
+    "test": "bun run repo package test",
+    "verify": "bun run repo package verify"
+  },
   "dependencies": {
     "@jearle/lib-postgres": "workspace:*",
     "@jearle/util-convert": "workspace:*",
     "@jearle/util-env": "workspace:*",
     "@jearle/util-logger": "workspace:*",
-    "@jearle/util-process": "workspace:*"
+    "@jearle/util-process": "workspace:*",
+    "@jearle/util-types": "workspace:*"
   },
   "peerDependencies": {},
   "devDependencies": {
+    "@jearle/config-bun": "workspace:*",
+    "@jearle/config-oxlint": "workspace:*",
     "@jearle/config-tsconfig": "workspace:*"
   }
 }

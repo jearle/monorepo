@@ -2,28 +2,23 @@ import { type PostgresDatabase } from '@jearle/lib-postgres';
 
 import { toCamelCaseProps } from '@jearle/util-convert';
 
-export type QueryOneResult<TData> =
-  | {
-      readonly success: false;
-      readonly error: Error;
-    }
-  | {
-      readonly success: true;
-      readonly data: TData;
-    };
+import { type QueryOneResult } from './types';
 
-export type PropsQueryOne = {
+export type QueryOneProps = {
   readonly db: PostgresDatabase;
   readonly queryString: string;
   readonly values?: unknown[];
 };
 export const queryOne = async <TData>(
-  props: PropsQueryOne,
+  props: QueryOneProps,
 ): Promise<QueryOneResult<TData>> => {
   const { db, queryString, values } = props;
-  let firstRow;
+  let firstRow: Record<string, unknown> | undefined;
   try {
-    const { rows } = await db.query(queryString, values);
+    const { rows } = await db.query<Record<string, unknown>>(
+      queryString,
+      values,
+    );
     firstRow = rows[0];
   } catch (error) {
     const result = { success: false as const, error: new Error(`${error}`) };
@@ -51,7 +46,7 @@ export const queryOne = async <TData>(
     return result;
   }
 
-  const result = { success: true as const, data: data as TData };
+  const result = { success: true as const, data };
 
   return result;
 };

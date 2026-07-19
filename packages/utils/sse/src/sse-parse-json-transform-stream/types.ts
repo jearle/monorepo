@@ -1,4 +1,4 @@
-import type { JSONTransformStreamOutput } from '@jearle/util-stream';
+import { type JSONTransformStreamOutput } from '@jearle/util-stream';
 
 import { type SSEParseTransformStreamOutput } from '../sse-parse-transform-stream';
 

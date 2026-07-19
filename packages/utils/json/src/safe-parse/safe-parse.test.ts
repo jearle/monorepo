@@ -1,6 +1,6 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
-import { safeParse } from './safe-parse';
+import { safeParse } from '.';
 
 type FooBar = { readonly foo: `bar` };
 

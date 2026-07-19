@@ -1,5 +1,5 @@
 import { SIGNALS } from './constants';
-import type { Signal, TerminateHandler } from './types';
+import { type Signal, type TerminateHandler } from './types';
 
 export const onTerminate = (terminateHandler: TerminateHandler) => {
   let isShuttingDown = false;
@@ -20,6 +20,8 @@ export const onTerminate = (terminateHandler: TerminateHandler) => {
   };
 
   SIGNALS.forEach((signal) => {
-    process.on(signal, signalHandler);
+    process.on(signal, () => {
+      void signalHandler(signal);
+    });
   });
 };

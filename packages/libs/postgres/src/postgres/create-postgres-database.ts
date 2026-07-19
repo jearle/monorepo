@@ -5,11 +5,11 @@ import { Pool } from 'pg';
 import { type Logger } from '@jearle/util-logger';
 import { onTerminate } from '@jearle/util-process';
 
-type PropsGracefulShutdown = {
+type ShutdownDatabaseProps = {
   readonly db: Pool;
   readonly logger: Logger;
 };
-const shutdownDatabase = async (props: PropsGracefulShutdown) => {
+const shutdownDatabase = async (props: ShutdownDatabaseProps) => {
   const { db, logger } = props;
 
   logger.info(`closing DB pool...`);
@@ -32,11 +32,11 @@ const shutdownDatabase = async (props: PropsGracefulShutdown) => {
   }
 };
 
-type PropsDatabaseCheck = {
+type DatabaseCheckProps = {
   readonly db: Pool;
   readonly logger: Logger;
 };
-const databaseCheck = async (props: PropsDatabaseCheck) => {
+const databaseCheck = async (props: DatabaseCheckProps) => {
   const { db, logger } = props;
 
   try {
@@ -49,11 +49,13 @@ const databaseCheck = async (props: PropsDatabaseCheck) => {
   }
 };
 
-export type PropsCreateDatabase = {
+export type CreatePostgresDatabaseProps = {
   readonly connectionString: string;
   readonly logger: Logger;
 };
-export const createPostgresDatabase = async (props: PropsCreateDatabase) => {
+export const createPostgresDatabase = async (
+  props: CreatePostgresDatabaseProps,
+) => {
   const { connectionString, logger } = props;
 
   const db = new Pool({ connectionString });

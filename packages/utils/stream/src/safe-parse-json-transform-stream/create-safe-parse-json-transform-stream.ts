@@ -1,10 +1,10 @@
 import { safeParse } from '@jearle/util-json';
 
-import type {
-  JSONTransformStreamInput,
-  JSONTransformStreamSuccessOutput,
-  JSONTransformStreamFailureOutput,
-  JSONTransformStreamOutput,
+import {
+  type JSONTransformStreamFailureOutput,
+  type JSONTransformStreamInput,
+  type JSONTransformStreamOutput,
+  type JSONTransformStreamSuccessOutput,
 } from './types';
 
 export const createSafeParseJSONTransformStream = <T = unknown>() => {

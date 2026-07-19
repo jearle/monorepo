@@ -1,8 +1,8 @@
 import z from 'zod';
 
 import {
-  createSSEParseTransformStream,
   createSSEParseJSONTransformStream,
+  createSSEParseTransformStream,
   createSSEStringifyJSONTransformStream,
   createSSEStringifyTransformStream,
 } from '@jearle/util-sse';
@@ -13,27 +13,72 @@ import {
 } from '../open-ai-chat';
 
 import { fetchOpenrouterChatCompletions } from './fetch-openrouter-chat-completions';
-import type { Message } from './types';
+import {
+  type ChatCompletionResult,
+  type ChatCompletionStreamResult,
+  type Message,
+  OPENROUTER_CHAT_RESULT_STATUS_ERROR,
+  OPENROUTER_CHAT_RESULT_STATUS_SUCCESS,
+} from './types';
 
-type PropsCreateChat = {
+export type CreateOpenrouterChatProps = {
   readonly api: string;
   readonly apiKey: string;
   readonly model: string;
 };
-export const createOpenrouterChat = (props: PropsCreateChat) => {
+
+/**
+ * Creates an OpenRouter chat adapter for request-response and streaming calls.
+ *
+ * @param props - The OpenRouter chat configuration.
+ * @returns A chat adapter with completion helpers.
+ *
+ * @example
+ * const { chat } = createOpenrouterChat({
+ *   api: `https://openrouter.ai/api/v1/chat/completions`,
+ *   apiKey: `test-key`,
+ *   model: `openai/gpt-4o-mini`,
+ * });
+ */
+export const createOpenrouterChat = (props: CreateOpenrouterChatProps) => {
   const { api, apiKey, model } = props;
 
-  type PropsCompletions = Message;
-  const completions = async (props: PropsCompletions) => {
-    const { response } = await fetchOpenrouterChatCompletions({
+  type CompletionsProps = Message;
+
+  const completions = async (
+    props: CompletionsProps,
+  ): Promise<ChatCompletionResult> => {
+    const { system, user } = props;
+    const request = {
       api,
       apiKey,
       model,
       stream: false,
-      ...props,
-    });
+      system,
+      user,
+    };
+    const { response } = await fetchOpenrouterChatCompletions(request);
 
-    const json = await response.json();
+    const json: unknown = await response.json();
+    const responseStatus = response.status;
+    const responseOK = response.ok;
+    const responseBody = JSON.stringify(json, null, 2);
+
+    if (responseOK === false) {
+      const errorParts = [
+        `Openrouter chat request failed with status ${responseStatus}.`,
+        `Response body:`,
+        responseBody,
+      ];
+      const errorMessage = errorParts.join(`\n`);
+
+      const result = {
+        status: OPENROUTER_CHAT_RESULT_STATUS_ERROR,
+        error: errorMessage,
+      };
+
+      return result;
+    }
 
     const parsedJSON = OpenAICompletionSchema.safeParse(json);
 
@@ -42,12 +87,18 @@ export const createOpenrouterChat = (props: PropsCreateChat) => {
     if (success === false) {
       const { error } = parsedJSON;
 
-      const errorTree = z.treeifyError(error);
-      const errorMessage = `Invalid openrouter api response:\n ${errorTree}`;
+      const prettifiedError = z.prettifyError(error);
+      const errorParts = [
+        `Invalid openrouter api response.`,
+        prettifiedError,
+        `Response body:`,
+        responseBody,
+      ];
+      const errorMessage = errorParts.join(`\n`);
 
       const result = {
+        status: OPENROUTER_CHAT_RESULT_STATUS_ERROR,
         error: errorMessage,
-        content: null,
       };
 
       return result;
@@ -59,39 +110,90 @@ export const createOpenrouterChat = (props: PropsCreateChat) => {
 
     if (firstChoice === undefined) {
       const result = {
+        status: OPENROUTER_CHAT_RESULT_STATUS_ERROR,
         error: `first choice is undefined`,
-        content: null,
       };
 
       return result;
     }
 
-    const { content } = firstChoice.message;
+    const { error } = firstChoice;
+    const hasError = error === undefined;
+
+    if (hasError === false) {
+      const { message } = error;
+      const result = {
+        status: OPENROUTER_CHAT_RESULT_STATUS_ERROR,
+        error: message,
+      };
+
+      return result;
+    }
+
+    const { message } = firstChoice;
+    const { content } = message;
+
+    if (content === null) {
+      const result = {
+        status: OPENROUTER_CHAT_RESULT_STATUS_ERROR,
+        error: `chat completion content is null`,
+      };
+
+      return result;
+    }
 
     const result = {
-      error: null,
-      content,
+      status: OPENROUTER_CHAT_RESULT_STATUS_SUCCESS,
+      data: {
+        content,
+      },
     };
 
     return result;
   };
 
-  type PropsCompletionsStream = Message;
-  const completionsStream = async (props: PropsCompletionsStream) => {
-    const { response } = await fetchOpenrouterChatCompletions({
+  type CompletionsStreamProps = Message;
+
+  const completionsStream = async (
+    props: CompletionsStreamProps,
+  ): Promise<ChatCompletionStreamResult> => {
+    const { system, user } = props;
+    const request = {
       api,
       apiKey,
       model,
       stream: true,
-      ...props,
-    });
+      system,
+      user,
+    };
+    const { response } = await fetchOpenrouterChatCompletions(request);
+    const responseStatus = response.status;
+    const responseOK = response.ok;
+
+    if (responseOK === false) {
+      const json: unknown = await response.json();
+      const responseBody = JSON.stringify(json, null, 2);
+      const errorParts = [
+        `Openrouter streaming request failed with status ${responseStatus}.`,
+        `Response body:`,
+        responseBody,
+      ];
+      const errorMessage = errorParts.join(`\n`);
+
+      const result = {
+        status: OPENROUTER_CHAT_RESULT_STATUS_ERROR,
+        error: errorMessage,
+      };
+
+      return result;
+    }
 
     const { body: responseBody } = response;
 
     if (responseBody === null) {
       const result = {
+        status: OPENROUTER_CHAT_RESULT_STATUS_ERROR,
         error: `no response body`,
-        stream: null,
       };
 
       return result;
@@ -106,14 +208,26 @@ export const createOpenrouterChat = (props: PropsCreateChat) => {
       createSSEStringifyJSONTransformStream();
     const { sseStringifyTransformStream } = createSSEStringifyTransformStream();
 
-    const stream = responseBody
-      .pipeThrough(sseParseTransformStream)
-      .pipeThrough(sseParseJSONTransformStream)
-      .pipeThrough(openAIParseCompletionChunkTransformStream)
-      .pipeThrough(sseStringifyJSONTransformStream)
-      .pipeThrough(sseStringifyTransformStream);
+    const parsedSSEStream = responseBody.pipeThrough(sseParseTransformStream);
+    const parsedJSONStream = parsedSSEStream.pipeThrough(
+      sseParseJSONTransformStream,
+    );
+    const parsedCompletionStream = parsedJSONStream.pipeThrough(
+      openAIParseCompletionChunkTransformStream,
+    );
+    const stringifiedJSONStream = parsedCompletionStream.pipeThrough(
+      sseStringifyJSONTransformStream,
+    );
+    const stream = stringifiedJSONStream.pipeThrough(
+      sseStringifyTransformStream,
+    );
 
-    const result = { error: null, stream };
+    const result = {
+      status: OPENROUTER_CHAT_RESULT_STATUS_SUCCESS,
+      data: {
+        stream,
+      },
+    };
 
     return result;
   };
@@ -127,3 +241,5 @@ export const createOpenrouterChat = (props: PropsCreateChat) => {
 
   return result;
 };
+
+export type OpenRouterChat = ReturnType<typeof createOpenrouterChat>[`chat`];

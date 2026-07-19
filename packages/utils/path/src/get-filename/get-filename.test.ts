@@ -1,6 +1,6 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
-import { getFilename } from './get-filename';
+import { getFilename } from '.';
 
 test(`getFilename(import.meta.url)`, () => {
   const filename = getFilename(import.meta.url);

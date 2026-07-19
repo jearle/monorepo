@@ -5,15 +5,15 @@ import { createServices } from '../services';
 import { createApp } from '../app';
 import { createMiddlewares } from '../middlewares';
 
-export type PropsCreateServerFetch = {
+export type CreateServerFetchProps = {
   readonly logger: Logger;
   readonly env: Env;
 };
-export const createServerFetch = async (props: PropsCreateServerFetch) => {
+export const createServerFetch = async (props: CreateServerFetchProps) => {
   const { env, logger } = props;
 
   const { services } = await createServices({ env, logger });
-  const { middlewares } = createMiddlewares({ services, logger });
+  const { middlewares } = createMiddlewares({ services });
   const { app } = createApp({ env, logger, services, middlewares });
   const { fetch } = app;
 

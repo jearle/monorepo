@@ -1,15 +1,11 @@
-import Papa, { type ParseConfig } from 'papaparse';
+import Papa from 'papaparse';
 
-type toJSONProps = {
-  readonly csv: string;
-  readonly config?: ParseConfig;
-};
-export const toJSON = (props: toJSONProps) => {
-  const { csv, config = {} } = props;
+import { type ToJSONOptions } from './types';
 
-  const { data: json } = Papa.parse(csv, config);
+export const toJSON = (csv: string, options: ToJSONOptions = {}) => {
+  const { data: json, errors, meta } = Papa.parse(csv, options);
 
-  const result = { json };
+  const result = { errors, json, meta };
 
   return result;
 };

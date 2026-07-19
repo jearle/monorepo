@@ -1,1 +1,1 @@
-export * from './create-authentication-api-logger';
+export * from './create-logger';

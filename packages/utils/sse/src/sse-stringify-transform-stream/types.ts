@@ -1,4 +1,4 @@
-import type { SSE_FIELD_VALUE_DONE } from '../sse-string';
+import { type SSE_FIELD_VALUE_DONE } from '../sse-string';
 
 export type SSEStringifyTransformStreamInput =
   | string

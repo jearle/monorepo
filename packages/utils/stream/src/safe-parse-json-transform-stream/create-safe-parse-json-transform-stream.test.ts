@@ -1,12 +1,12 @@
-import { test, expect } from 'bun:test';
+import { expect, test } from 'bun:test';
 
 import { processStreamChunks } from '../test';
 
-import type {
-  JSONTransformStreamInput,
-  JSONTransformStreamOutput,
-} from './types';
-import { createSafeParseJSONTransformStream } from './create-safe-parse-json-transform-stream';
+import {
+  type JSONTransformStreamInput,
+  type JSONTransformStreamOutput,
+} from '.';
+import { createSafeParseJSONTransformStream } from '.';
 
 type TestJSONTransformStreamInputs = [
   JSONTransformStreamInput,
@@ -36,7 +36,7 @@ const processChunks = async (
   return outputs;
 };
 
-test('parses valid JSON', async () => {
+test(`parses valid JSON`, async () => {
   const [output1, output2] = await processChunks();
 
   if (output1.success === false) {
@@ -55,7 +55,7 @@ test('parses valid JSON', async () => {
   expect(output2.data.message).toBe(`hello`);
 });
 
-test('handles invalid JSON', async () => {
+test(`handles invalid JSON`, async () => {
   const [, output] = await processChunks([
     TEST_STREAM_OUTPUT[0],
     { data: `invalid` },
